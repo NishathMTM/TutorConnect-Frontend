@@ -1,0 +1,18 @@
+import antfu from '@antfu/eslint-config';
+// @ts-check
+import withNuxt from './.nuxt/eslint.config.mjs';
+
+export default withNuxt(
+   antfu({
+      vue: true,
+      typescript: this,
+
+      stylistic: {
+         indent: 3,
+         semi: true,
+         quotes: 'single',
+      },
+   }),
+
+   // Your custom configs here
+);
