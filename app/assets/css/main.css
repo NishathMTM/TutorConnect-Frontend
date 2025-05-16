@@ -1,20 +1,33 @@
+@import 'tailwindcss';
 @import "@nuxt/ui";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @theme static{
-    --color-green-50: #EFFDF5;
-    --color-green-100: #D9FBE8;
-    --color-green-200: #B3F5D1;
-    --color-green-300: #75EDAE;
-    --color-green-400: #00DC82;
-    --color-green-500: #00C16A;
-    --color-green-600: #00A155;
-    --color-green-700: #007F45;
-    --color-green-800: #016538;
-    --color-green-900: #0A5331;
-    --color-green-950: #052E16;
+    --color-first-50: #F2F3FD;
+    --color-first-100: #E5E8FB;
+    --color-first-200: #CAD0F7;
+    --color-first-300: #A7B1F1;
+    --color-first-400: #7786E9;
+    --color-first-500: #233DDB;
+    --color-first-600: #2036C6;
+    --color-first-700: #1B2DA7;
+    --color-first-800: #182995;
+    --color-first-900: #111D6A;
+    --color-first-950: #0B1346;
+
+    /* Second color palette */
+    --color-second-50: #EFF0F0;
+    --color-second-100: #E2E3E3;
+    --color-second-200: #C3C4C5;
+    --color-second-300: #A7A8AA;
+    --color-second-400: #888A8C;
+    --color-second-500: #6B6D6F;
+    --color-second-600: #555758;
+    --color-second-700: #414243;
+    --color-second-800: #2B2B2C;
+    --color-second-900: #171717;
+    --color-second-950: #0A0A0A;
+    /* Primary color */
+
+    --color-primary: #111D6A;
 }
 
