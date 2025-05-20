@@ -4,7 +4,7 @@
 
 <template>
    <header class="bg-first-50 p-3 flex gap-3 justify-between rounded-xl">
-      <slot></slot>
+      <slot />
    </header>
 </template>
 

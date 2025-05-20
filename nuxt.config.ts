@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
    $env: undefined,
    compatibilityDate: '2024-11-01',
-   devtools: { enabled: true },
+   devtools: { enabled: false },
    future: {
       compatibilityVersion: 4,
    },
@@ -26,6 +26,8 @@ export default defineNuxtConfig({
       '@pinia/nuxt',
       'nuxt-auth-utils',
       'dayjs-nuxt',
+      '@samk-dev/nuxt-vcalendar',
+
    ],
 
    ui: {

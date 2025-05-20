@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PropertyType } from '~~/__backend/properties/types';
+import type { CourseType } from '~~/__backend/courses/types';
 
 const emit = defineEmits(['select']);
 
@@ -9,19 +9,22 @@ const modelValue = defineModel<number | undefined>({ default: undefined });
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const propertyTypes = ref([] as PropertyType[]);
+const courseTypes = ref([] as CourseType[]);
 
-try {
-   propertyTypes.value = await useNuxtApp().$api<PropertyType[]>('/property/types');
-}
-catch (error) {
-   console.error(error);
-}
+// Move API call inside onMounted hook
+onMounted(async () => {
+   try {
+      courseTypes.value = await useNuxtApp().$api<CourseType[]>('/course/types');
+   }
+   catch (error) {
+      console.error(error);
+   }
+});
 
 watch(modelValue, () => {
    emit(
       'select',
-      propertyTypes.value.find((type) => {
+      courseTypes.value.find((type) => {
          return type.id === modelValue.value;
       }),
    );
@@ -32,14 +35,14 @@ watch(modelValue, () => {
 
 <template>
    <USelectMenu
+      id="id"
       v-model="modelValue"
       searchable
-      search-placeholder="Search property types..."
-      :options="propertyTypes"
-      option-attribute="propertyType"
-      value-attribute="id"
-      placeholder="Select property type"
-   ></USelectMenu>
+      search-placeholder="Search Course types..."
+      :options="courseTypes"
+      option-attribute="courseType"
+      placeholder="Select course type"
+   />
 </template>
 
 <style scoped lang="postcss"></style>

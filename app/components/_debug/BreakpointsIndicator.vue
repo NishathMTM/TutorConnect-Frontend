@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDraggable, useStorage, useWindowSize } from '@vueuse/core';
+import { useDraggable, useStorage } from '@vueuse/core';
 /* ------------------------------------------------------------------------------------------------ */
 
 const breakpointsEl = ref<HTMLElement | null>(null);

@@ -12,7 +12,7 @@ function navigateToProfile() {
    navigateTo('/profile/manage');
 }
 
-// Computed property for user avatar
+// Computed course for user avatar
 const userAvatar = computed(() => {
    const avatarUrl = user.value?.profile?.avatarUrl || '';
 

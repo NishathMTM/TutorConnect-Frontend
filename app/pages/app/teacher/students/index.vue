@@ -3,8 +3,10 @@
 </script>
 
 <template>
-   <div class="bg-first-100 text-sm text-first-700 px-2 py-1 rounded">
-      <slot />
+   <div>
+      <h1 class="font-light sm:text-4xl ">
+         Welcome to student page
+      </h1>
    </div>
 </template>
 

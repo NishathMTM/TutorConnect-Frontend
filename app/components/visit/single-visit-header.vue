@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { PropertyVisitStatus, type VisitFull } from '~~/__backend/property-visits/types';
+import type { VisitFull } from '~~/__backend/course-visits/types';
+import { PropertyVisitStatus } from '~~/__backend/course-visits/types';
 import { usePropertyVisitMessaging } from '~/composables/property/visits/use-property-visit-messaging';
-import { formatDateTimeString, formatTimeAs12hString } from '~/utils/formatting-utils';
+import { formatDateTimeString } from '~/utils/formatting-utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 

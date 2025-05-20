@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Property } from '~~/__backend/properties/types';
-import { formatNumber } from '~/utils/formatting-utils';
 
 const { property } = defineProps<{
    property: Property;

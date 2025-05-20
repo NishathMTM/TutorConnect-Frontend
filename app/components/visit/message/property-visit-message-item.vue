@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PropertyVisitMessage } from '~~/__backend/property-visit-messages/types';
+import type { PropertyVisitMessage } from '~~/__backend/course-visit-messages/types';
 
 /* ---------------------------------------------------------------------------------------------- */
 

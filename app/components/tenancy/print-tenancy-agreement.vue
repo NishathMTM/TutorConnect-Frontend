@@ -304,8 +304,7 @@ function printAgreement() {
             <!-- Main signatures -->
             <div class="signatures">
                <div class="signature-block">
-                  <div class="signature-line">
-                  </div>
+                  <div class="signature-line" />
                   <div class="signature-label">
                      Landlord's Signature
                   </div>
@@ -315,8 +314,7 @@ function printAgreement() {
                </div>
 
                <div class="signature-block">
-                  <div class="signature-line">
-                  </div>
+                  <div class="signature-line" />
                   <div class="signature-label">
                      Tenant's Signature
                   </div>
@@ -332,18 +330,15 @@ function printAgreement() {
                   <h3>Witness 1:</h3>
                   <div class="witness-field">
                      <label>Name:</label>
-                     <div class="signature-line">
-                     </div>
+                     <div class="signature-line" />
                   </div>
                   <div class="witness-field">
                      <label>NIC:</label>
-                     <div class="signature-line">
-                     </div>
+                     <div class="signature-line" />
                   </div>
                   <div class="witness-field">
                      <label>Signature:</label>
-                     <div class="signature-line">
-                     </div>
+                     <div class="signature-line" />
                   </div>
                </div>
 
@@ -351,18 +346,15 @@ function printAgreement() {
                   <h3>Witness 2:</h3>
                   <div class="witness-field">
                      <label>Name:</label>
-                     <div class="signature-line">
-                     </div>
+                     <div class="signature-line" />
                   </div>
                   <div class="witness-field">
                      <label>NIC:</label>
-                     <div class="signature-line">
-                     </div>
+                     <div class="signature-line" />
                   </div>
                   <div class="witness-field">
                      <label>Signature:</label>
-                     <div class="signature-line">
-                     </div>
+                     <div class="signature-line" />
                   </div>
                </div>
             </div>

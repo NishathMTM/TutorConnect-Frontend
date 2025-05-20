@@ -4,7 +4,7 @@
 
 <template>
    <div class="flex w-full justify-center p-10">
-      <span class="loader"></span>
+      <span class="loader" />
    </div>
 </template>
 

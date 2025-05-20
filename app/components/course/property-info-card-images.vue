@@ -23,7 +23,7 @@ const selectedImages = computed(() => {
             class="h-64 md:h-32 w-full object-cover rounded-lg"
             :src="selectedImages[0]?.imageUrl"
             alt=""
-         />
+         >
       </div>
 
       <div class="hidden md:block">
@@ -31,7 +31,7 @@ const selectedImages = computed(() => {
             class="h-32 w-full object-cover rounded-lg"
             :src="selectedImages[1]?.imageUrl"
             alt=""
-         />
+         >
       </div>
 
       <div class="hidden md:block">
@@ -39,7 +39,7 @@ const selectedImages = computed(() => {
             class="h-32 w-full object-cover rounded-lg"
             :src="selectedImages[2]?.imageUrl"
             alt=""
-         />
+         >
       </div>
    </div>
 </template>

@@ -10,7 +10,7 @@ const { secondary = false } = defineProps<{
          secondary ? 'text-second-500' : 'text-primaryColor',
       ]"
    >
-      <slot></slot>
+      <slot />
    </h1>
 </template>
 

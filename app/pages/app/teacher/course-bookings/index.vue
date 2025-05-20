@@ -1,11 +1,11 @@
 <script setup lang="ts">
-//
+
 </script>
 
 <template>
-   <h1 class="font-bold text-xl text-second-700">
-      <slot />
-   </h1>
+   <div>
+      Course bookings
+   </div>
 </template>
 
 <style scoped lang="postcss">

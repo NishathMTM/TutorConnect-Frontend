@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { City } from '~~/__backend/properties/types';
+import type { CourseCategory } from '~~/__backend/courses/types';
 
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -8,25 +8,28 @@ const emit = defineEmits(['select']);
 /* ---------------------------------------------------------------------------------------------- */
 
 /*
- * city id is the v-model value
+ * course category id is the v-model value
  */
 
 const modelValue = defineModel<number | undefined>({ default: undefined });
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const cities = ref([] as City[]);
+const courseCategories = ref([] as CourseCategory[]);
 
-try {
-   cities.value = await useNuxtApp().$api<City[]>('/property/cities');
-}
-catch (error) {
-   console.error(error);
-}
+// Move API call inside onMounted hook
+onMounted(async () => {
+   try {
+      courseCategories.value = await useNuxtApp().$api<CourseCategory[]>('/course/course-categories');
+   }
+   catch (error) {
+      console.error(error);
+   }
+});
 
 watch(modelValue, () => {
-   emit('select', cities.value.find((city) => {
-      return city.id === modelValue.value;
+   emit('select', courseCategories.value.find((courseCategory) => {
+      return courseCategory.id === modelValue.value;
    }));
 });
 
@@ -38,10 +41,10 @@ watch(modelValue, () => {
       v-model="modelValue"
       searchable
       searchable-placeholder="Search cities..."
-      :options="cities"
-      option-attribute="city"
+      :options="courseCategories"
+      option-attribute="courseCategory"
       value-attribute="id"
-      placeholder="Select city"
+      placeholder="Select Course Category"
    />
 </template>
 

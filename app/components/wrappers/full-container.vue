@@ -4,7 +4,7 @@
 
 <template>
    <section class="container mx-auto">
-      <slot></slot>
+      <slot />
    </section>
 </template>
 

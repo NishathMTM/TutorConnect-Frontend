@@ -3,6 +3,7 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import { watchImmediate } from '@vueuse/shared';
 import dayjs from 'dayjs';
 import { toDateString } from '~/utils/datetime-utils';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 /* ---------------------------------------------------------------------------------------------- */
 

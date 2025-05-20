@@ -1,5 +1,6 @@
+import type { PropertyVisitMessage } from '~~/__backend/course-visit-messages/types';
 import { ref } from 'vue';
-import { type PropertyVisitMessage, PropertyVisitMessageSchema } from '~~/__backend/property-visit-messages/types';
+import { PropertyVisitMessageSchema } from '~~/__backend/course-visit-messages/types';
 
 export function useVisitMessagesChatTransmit(visitId: Ref<number>) {
    const messages = ref<PropertyVisitMessage[]>([]);

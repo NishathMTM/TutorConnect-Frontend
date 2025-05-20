@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
    <ULink :to class="text-first-500 hover:text-first-700">
-      <slot></slot>
+      <slot />
    </ULink>
 </template>
 

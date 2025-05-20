@@ -1,10 +1,10 @@
-import type { Visit } from '~~/__backend/property-visits/types';
-import { PropertyVisitMessageTagEnum } from '~~/__backend/property-visit-messages/types';
+import type { Visit } from '~~/__backend/course-visits/types';
+import { PropertyVisitMessageTagEnum } from '~~/__backend/course-visit-messages/types';
 
 /* ---------------------------------------------------------------------------------------------- */
 
 /**
- * Composable for handling property visit computations
+ * Composable for handling course visit computations
  */
 export function usePropertyVisitMessaging(visit: Ref<Visit | null>) {
    /**
@@ -27,7 +27,7 @@ export function usePropertyVisitMessaging(visit: Ref<Visit | null>) {
       });
 
       try {
-         await useNuxtApp().$api('/property-visit-message', {
+         await useNuxtApp().$api('/course-visit-message', {
             method: 'POST',
             body: messageBody,
          });

@@ -32,7 +32,7 @@ const ProfileFormSchema = z.object({
 const formState = reactive({
    fullName: '',
    address: '',
-   gender: 'MALE',
+   gender: '',
    dob: todayAsString(),
    nic: '',
    phone1: '',

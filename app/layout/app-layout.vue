@@ -18,14 +18,14 @@ function toggleSidebar() {
       >
          <div class="flex justify-center border-b border-first-200 py-3 h-16">
             <NuxtLink to="/">
-               <Logo class="h-8" />
+               <Logo class="h-6" />
             </NuxtLink>
          </div>
 
          <div class="flex-1 overflow-auto p-2">
             <!-- region: sidebar content -->
             <section class="overflow-auto">
-               <slot name="sidebar"></slot>
+               <slot name="sidebar" />
             </section>
             <!-- endregion: sidebar content -->
          </div>
@@ -36,7 +36,7 @@ function toggleSidebar() {
          v-if="showSidebar"
          class="fixed z-10 h-screen w-screen bg-second-100/50 backdrop-blur"
          @click="showSidebar = false"
-      ></div>
+      />
 
       <!-- region: main -->
       <main class="flex w-full flex-1 flex-col overflow-auto">
@@ -56,7 +56,7 @@ function toggleSidebar() {
             <!-- endregion: header -->
 
             <div class="p-5 flex-1">
-               <slot></slot>
+               <slot />
             </div>
 
             <footer class="mt-10">

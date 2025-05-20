@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useApiGetVisitMessages } from '~~/__backend/property-visit-messages/api';
-import { PropertyVisitStatus, type Visit } from '~~/__backend/property-visits/types';
+import type { Visit } from '~~/__backend/course-visits/types';
+import { useApiGetVisitMessages } from '~~/__backend/course-visit-messages/api';
+import { PropertyVisitStatus } from '~~/__backend/course-visits/types';
 import PropertyVisitMessageItem from '~/components/visit/message/property-visit-message-item.vue';
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -51,7 +52,7 @@ async function handlePostMessage() {
    try {
       messageBody.message = messageInput.value;
 
-      await useNuxtApp().$api('/property-visit-message', {
+      await useNuxtApp().$api('/course-visit-message', {
          method: 'POST',
          body: messageBody,
       });
@@ -134,7 +135,7 @@ watchOnce(() => apiMessages.messages, (messages) => {
                :icon="iconLibrary.messaging.send"
                variant="soft"
                @click="handlePostMessage()"
-            ></UButton>
+            />
          </div>
       </template>
 
