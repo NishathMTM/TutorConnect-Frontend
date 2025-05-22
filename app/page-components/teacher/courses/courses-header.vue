@@ -13,20 +13,20 @@ const modelQueryParams = defineModel<ApiGetAllCoursesByTeacherQuery>('query', {
    },
 });
 
-// const queryParams = reactive({} as ApiGetAllCoursesByTeacherQuery);
+const queryParams = reactive({} as ApiGetAllCoursesByTeacherQuery);
 
 /* ---------------------------------------------------------------------------------------------- */
+
+queryParams.courseCategoryId = modelQueryParams.value.courseCategoryId;
 //
-// queryParams.courseCategoryId = modelQueryParams.value.courseCategoryId;
-//
-// // watchDeep(queryParams, (params) => {
-// //    if (params.numberOfRooms !== '') {
-// //       modelQueryParams.value.numberOfRooms = params.numberOfRooms;
-// //    }
-// //    else {
-// //       modelQueryParams.value.numberOfRooms = undefined;
-// //    }
-// // });
+// watchDeep(queryParams, (params) => {
+//    if (params.courseCategoryId !== '') {
+//       modelQueryParams.value.courseCategoryId = params.courseCategoryId;
+//    }
+//    else {
+//       modelQueryParams.value.courseCategoryId = undefined;
+//    }
+// });
 //
 // function apply() {
 //    if (queryParams.query !== '') {

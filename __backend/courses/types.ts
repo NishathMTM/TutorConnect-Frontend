@@ -30,7 +30,7 @@ export const CourseSchema = z.object({
    ownerId: z.number(),
    courseTypeId: z.number(),
    courseCategoryId: z.number(),
-   description: z.string(),
+   description: z.string().nullable(),
    courseType: CourseTypeSchema,
    courseFeatures: z.array(CourseFeatureSchema),
    courseImages: z.array(CourseImageSchema),

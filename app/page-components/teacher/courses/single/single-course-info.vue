@@ -1,27 +1,20 @@
 <script setup lang="ts">
-import type { Property } from '~~/__backend/properties/types';
+import type { Course } from '~~/__backend/courses/types';
+import { iconLibrary } from '~/utils/icons-utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const { property } = defineProps<{
-   property: Property;
+const props = defineProps<{
+   course: Course;
 }>();
 
 const primaryImage = computed(() => {
-   return property.primaryImage?.imageUrl;
+   return props.course.primaryImage?.imageUrl;
 });
 
 const title = computed(() => {
-   return `${property.rooms} rooms ${property.propertyType.propertyType} in ${property.city.city}`;
+   return `${props.course.courseCategory.courseCategory} classes for ${props.course.courseType.courseType} students`;
 });
-
-/* ---------------------------------------------------------------------------------------------- */
-
-const furnishedStateString = {
-   FULLY_FURNISHED: 'Fully furnished',
-   SEMI_FURNISHED: 'Semi furnished',
-   UNFURNISHED: 'Unfurnished',
-};
 
 /* ---------------------------------------------------------------------------------------------- */
 /*
@@ -29,7 +22,7 @@ const furnishedStateString = {
  */
 
 function convertNewlinesToBr(text: string): string {
-   return text.replace(/\n/g, '<br/>');
+   return text?.replace(/\n/g, '<br/>') || '';
 }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -47,13 +40,13 @@ function convertNewlinesToBr(text: string): string {
                   class="aspect_16_9 w-auto rounded object-cover lg:w-[400px]"
                   :src="primaryImage"
                   alt="Primary image"
-               />
+               >
                <div
                   v-else
                   class="aspect_16_9 flex items-center justify-center rounded-xl border-2 border-dashed border-first-100 bg-first-50"
                >
                   <p class="text-xl font-bold text-first-300">
-                     No property image
+                     No course image
                   </p>
                </div>
             </div>
@@ -61,27 +54,17 @@ function convertNewlinesToBr(text: string): string {
             <div class="overflow-hidden">
                <div class="flex gap-2 overflow-auto lg:w-[400px]">
                   <img
-                     v-for="image in property.propertyImages"
+                     v-for="image in course.courseImages"
                      :key="image.imageUrlKey"
                      class="aspect_square rounded object-cover"
                      width="128"
                      :src="image.imageUrl"
                      alt="Primary image"
-                  />
+                  >
                </div>
             </div>
          </div>
          <!-- endregion: images -->
-
-         <!-- region: map -->
-         <div class="my-5 hidden lg:block">
-            <LocationMapReadonly
-               v-if="property"
-               :lat="property.lat"
-               :lng="property.lng"
-            />
-         </div>
-         <!-- endregion: map -->
       </section>
       <!-- endregion: Images -->
 
@@ -94,9 +77,9 @@ function convertNewlinesToBr(text: string): string {
             </h1>
 
             <div class="flex items-center gap-1 uppercase text-first-600">
-               <UIcon :name="iconLibrary.map" />
+               <UIcon :name="iconLibrary.user.user" />
                <div class="">
-                  {{ property.city.city }}
+                  {{ course.user?.profile?.fullName }}
                </div>
             </div>
          </section>
@@ -113,58 +96,7 @@ function convertNewlinesToBr(text: string): string {
                   title="Property type"
                   :icon="iconLibrary.property.propertyType"
                >
-                  {{ property.propertyType.propertyType }}
-               </PropertyOverviewItem>
-
-               <PropertyOverviewItem
-                  title="Floor area"
-                  :icon="iconLibrary.property.floorArea"
-               >
-                  {{ property.floorArea }} sq.ft.
-               </PropertyOverviewItem>
-
-               <PropertyOverviewItem
-                  title="Floors"
-                  :icon="iconLibrary.property.floors"
-               >
-                  {{ property.floors }}
-               </PropertyOverviewItem>
-
-               <PropertyOverviewItem
-                  title="Bedrooms"
-                  :icon="iconLibrary.property.bedroom"
-               >
-                  {{ property.rooms }}
-               </PropertyOverviewItem>
-
-               <PropertyOverviewItem
-                  title="Bathrooms"
-                  :icon="iconLibrary.property.bathroom"
-               >
-                  {{ property.bathrooms }}
-               </PropertyOverviewItem>
-
-               <PropertyOverviewItem
-                  v-if="property.carParkingCapacity > 0"
-                  title="Car parking space"
-                  :icon="iconLibrary.property.carParking"
-               >
-                  {{ property.carParkingCapacity }}
-               </PropertyOverviewItem>
-
-               <PropertyOverviewItem
-                  v-if="property.bikeParkingCapacity > 0"
-                  title="Bike parking space"
-                  :icon="iconLibrary.property.bikeParking"
-               >
-                  {{ property.bikeParkingCapacity }}
-               </PropertyOverviewItem>
-
-               <PropertyOverviewItem
-                  title="Furnished status"
-                  :icon="iconLibrary.property.furnishedState"
-               >
-                  {{ furnishedStateString[property.furnishedState] }}
+                  {{ course.courseType.courseType }}
                </PropertyOverviewItem>
             </div>
          </section>
@@ -177,7 +109,7 @@ function convertNewlinesToBr(text: string): string {
                Description
             </header>
 
-            <div v-html="convertNewlinesToBr(property.description ?? 'No description given.')" />
+            <div v-html="convertNewlinesToBr(course.description ?? 'No description given.')" />
          </section>
          <!-- endregion: Description -->
 
@@ -189,7 +121,7 @@ function convertNewlinesToBr(text: string): string {
 
             <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                <div
-                  v-for="feature in property.propertyFeatures"
+                  v-for="feature in course.courseFeatures"
                   :key="feature.id"
                   class="rounded-md border border-first-50 bg-first-50/50 px-4 py-2"
                >
@@ -199,7 +131,7 @@ function convertNewlinesToBr(text: string): string {
                </div>
             </div>
 
-            <div v-if="property.propertyFeatures.length === 0">
+            <div v-if="course.courseFeatures.length === 0">
                No features found.
             </div>
          </section>

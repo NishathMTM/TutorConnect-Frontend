@@ -1,8 +1,4 @@
 <script setup lang="ts">
-// import PropertyListings from '~/page-components/landlord/properties/listings/course-listings.vue';
-
-/* ---------------------------------------------------------------------------------------------- */
-
 import { useApiGetCourseDetails } from '~~/__backend/courses/api';
 import SingleCourseInfo from '~/page-components/teacher/courses/single/single-course-info.vue';
 
@@ -12,17 +8,20 @@ definePageMeta({
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const { id } = useRoute().params;
+const route = useRoute();
+const { id } = route.params;
 
 const courseId = ref(Number(id) ?? 0);
 
 const apiGetCourse = reactive(useApiGetCourseDetails(courseId));
 
-apiGetCourse.execute();
+onMounted(() => {
+   apiGetCourse.execute();
+});
 
 /* ---------------------------------------------------------------------------------------------- */
 /*
- * Path: /app/landlord/properties/[id]
+ * Path: /app/teacher/courses/[id]
  * Description: View single course details
  */
 
@@ -41,9 +40,9 @@ watch(
       <LoadingPlaceholder v-if="apiGetCourse.status === 'pending'" />
 
       <FullContainer v-if="apiGetCourse.course">
-         <!-- region: Property info -->
-         <SingleCourseInfo :property="apiGetCourse.course" />
-         <!-- endregion: Property info -->
+         <!-- region: Course info -->
+         <SingleCourseInfo :course="apiGetCourse.course" />
+         <!-- endregion: Course info -->
 
          <!-- region: Edit options -->
          <section>
@@ -51,19 +50,15 @@ watch(
                <ButtonEdit
                   class="uppercase"
                   size="lg"
-                  to="/app/need/to/add"
+                  :to="`/app/teacher/courses/${courseId}/edit`"
                >
-                  Edit property details
+                  Edit course details
                </ButtonEdit>
             </div>
          </section>
          <!-- endregion: Edit options -->
 
          <UDivider class="my-5" />
-
-         <!--         &lt;!&ndash; region: Property listing details &ndash;&gt; -->
-         <!--         <PropertyListings :property="apiGetProperty.property" /> -->
-         <!-- endregion: Property listing details -->
       </FullContainer>
    </TeacherLayout>
 </template>

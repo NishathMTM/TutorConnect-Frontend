@@ -47,6 +47,7 @@ useHead({
       <FullContainer>
          <!-- region: header -->
          <CoursesHeader v-model:query="queryParams" />
+
          <!-- endregion: header -->
 
          <!-- region: List of properties -->

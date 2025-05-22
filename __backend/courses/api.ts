@@ -12,6 +12,7 @@ export interface ApiGetAllCoursesByTeacherQuery {
    ownerId: number;
    courseCategoryId?: number;
    courseTypeId?: number;
+   description?: string;
    query?: string;
 }
 

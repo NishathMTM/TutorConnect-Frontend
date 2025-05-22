@@ -34,6 +34,7 @@ const formState = reactive({
    ownerId: user.value?.id,
    courseTypeId: 0,
    courseCategoryId: 0,
+   description: '',
 });
 
 const isSubmitting = ref(false);
@@ -55,7 +56,7 @@ async function handleCreateCourse() {
          color: 'green',
       });
 
-      return navigateTo(`/app/teacher/courses/${response.id}/edit`);
+      return navigateTo(`/app/teacher/courses/`);
    }
    catch (error) {
       console.error(error);
@@ -107,6 +108,12 @@ watchDeep(courseCategory, (courseCategory) => {
                name="courseCategoryId"
             >
                <InputCourseCategory v-model="formState.courseCategoryId" />
+            </UFormField>
+            <UFormField
+               label="Description"
+               name="description"
+            >
+               <UTextarea v-model="formState.description" />
             </UFormField>
          </div>
 
