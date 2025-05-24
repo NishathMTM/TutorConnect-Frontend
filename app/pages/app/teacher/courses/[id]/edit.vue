@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useApiGetCourseDetails } from '~~/__backend/courses/api';
-import EditPropertyFeatures from '~/page-components/landlord/properties/edit/edit-course-features.vue';
-import EditPropertyImages from '~/page-components/landlord/properties/edit/edit-course-images.vue';
+import EditCourseImages from '~/page-components/teacher/courses/edit/edit-course-images.vue';
 
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -35,13 +34,14 @@ apiGetCourse.execute();
          v-if="apiGetCourse.course"
          class="flex flex-col gap-10"
       >
-         <EditPropertyBasicInfo :property="apiGetProperty.property" />
+         <EditCourseBasicInfo :course="apiGetCourse.course" />
 
-         <EditPropertyFeatures :property="apiGetProperty.property" />
+         <EditCourseFeatures :course="apiGetCourse.course" />
 
-         <EditPropertyImages
-            :property="apiGetProperty.property"
-            @complete="apiGetProperty.execute()"
+         <EditCourseImages
+            :course="apiGetCourse.course"
+            property=""
+            @complete="apiGetCourse.execute()"
          />
       </FullContainer>
    </TeacherLayout>

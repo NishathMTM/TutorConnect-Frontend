@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { Property } from '~~/__backend/properties/types';
-import type { PropertyFeature } from '~~/__backend/property-features/types';
+import type { CourseFeature } from '~~/__backend/course-features/types';
+import type { Course } from '~~/__backend/courses/types';
 import SelectCourseFeatures
    from '~/page-components/teacher/courses/edit/select-course-features.vue';
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const { property } = defineProps<{
-   property: Property;
+const { course } = defineProps<{
+   course: Course;
 }>();
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const selectedFeatures = ref<PropertyFeature[]>(property.propertyFeatures);
+const selectedFeatures = ref<CourseFeature[]>(course.courseFeatures);
 
 /* ---------------------------------------------------------------------------------------------- */
 </script>
@@ -20,14 +20,14 @@ const selectedFeatures = ref<PropertyFeature[]>(property.propertyFeatures);
 <template>
    <section>
       <header class="mb-5">
-         <Heading1>Property features</Heading1>
+         <Heading1>Course features</Heading1>
       </header>
 
       <!-- region: features -->
       <section>
          <SelectCourseFeatures
             v-model="selectedFeatures"
-            :property-id="property.id"
+            :course-id="course.id"
          />
       </section>
 

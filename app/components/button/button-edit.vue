@@ -2,7 +2,7 @@
 
 <template>
    <UButton
-      color="amber"
+      color="secondary"
       icon="i-fluent:edit-line-horizontal-3-24-regular"
    >
       <slot>Edit</slot>

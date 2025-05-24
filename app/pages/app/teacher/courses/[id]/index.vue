@@ -46,11 +46,11 @@ watch(
 
          <!-- region: Edit options -->
          <section>
-            <div class="flex justify-center gap-3">
+            <div class="flex justify-center gap-3 mt-5">
                <ButtonEdit
                   class="uppercase"
                   size="lg"
-                  :to="`/app/teacher/courses/${courseId}/edit`"
+                  :to="`/app/teacher/courses/${apiGetCourse.course.id}/edit`"
                >
                   Edit course details
                </ButtonEdit>

@@ -1,62 +1,40 @@
 <script setup lang="ts">
-import type { Property } from '~~/__backend/properties/types';
-import { useApiGetAllPropertyTypes } from '~~/__backend/properties/api';
+import type { Course } from '~~/__backend/courses/types';
 import { z } from 'zod';
-import InputCity from '~/components/property/input-city.vue';
-import LocationMap from '~/page-components/landlord/properties/location-map.vue';
+import { useApiGetAllCourseTypes } from '~~/__backend/courses/api';
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const { property } = defineProps<{
-   property: Property;
+const { course } = defineProps<{
+   course: Course;
 }>();
 
 const toast = useToast();
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const apiPropertyTypes = reactive(useApiGetAllPropertyTypes());
-apiPropertyTypes.execute();
+const apiCourseTypes = reactive(useApiGetAllCourseTypes());
+apiCourseTypes.execute();
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const locationMarker = ref({ lat: property.lat, lng: property.lng });
-
-const furnishedStateOptions = [
-   { id: 'UNFURNISHED', label: 'Not furnished' },
-   { id: 'SEMI_FURNISHED', label: 'Semi furnished' },
-   { id: 'FULLY_FURNISHED', label: 'Fully furnished' },
-];
-
 /* ---------------------------------------------------------------------------------------------- */
 
-const city = ref(property.city);
+const courseCategory = ref(course.courseCategory);
 
 const formSchema = z.object({
-   street: z.string().min(3, 'Street is required'),
-   address: z.string().min(3, 'Address is required'),
+   description: z.string().min(20, 'Description is required'),
 });
 
 const formState = reactive({
-   id: property.id,
-   propertyTypeId: property.propertyTypeId,
-   cityId: property.cityId,
-   street: property.street,
-   address: property.address,
-   lat: property.lat,
-   lng: property.lng,
-   description: property.description ?? '',
-   rooms: property.rooms,
-   bathrooms: property.bathrooms,
-   floors: property.floors,
-   floorArea: property.floorArea,
-   furnishedState: property.furnishedState,
-   carParkingCapacity: property.carParkingCapacity,
-   bikeParkingCapacity: property.bikeParkingCapacity,
+   id: course.id,
+   CourseTypeId: course.courseTypeId,
+   courseCategoryId: course.courseCategoryId,
+   description: course.description ?? '',
 });
 
-watch(city, (city) => {
-   formState.cityId = city.id;
+watch(courseCategory, (courseCategory) => {
+   formState.courseCategoryId = courseCategory.id;
 });
 
 const submitDisabled = ref(false);
@@ -73,7 +51,7 @@ async function handleSubmit() {
    submitDisabled.value = true;
 
    try {
-      await useNuxtApp().$api('/property', {
+      await useNuxtApp().$api('/course', {
          method: 'PUT',
          body: {
             ...formState,
@@ -82,14 +60,14 @@ async function handleSubmit() {
 
       toast.add({
          title: 'Updated',
-         description: 'Property details are saved',
-         color: 'green',
+         description: 'Course details are saved',
+         color: 'success',
          callback: () => {
             submitDisabled.value = false;
          },
       });
 
-      return navigateTo(`/app/landlord/properties/${property.id}`);
+      return navigateTo(`/app/teacher/courses/${course.id}`);
    }
    catch (error) {
       console.error(error);
@@ -106,190 +84,68 @@ async function handleSubmit() {
 <template>
    <section>
       <header class="mb-5">
-         <Heading1>Property information</Heading1>
+         <Heading1>Course information</Heading1>
       </header>
 
-      <div class="">
+      <div class="p-6 rounded-xl border border-first-100 bg-first-50/20">
          <UForm
-            class="flex flex-col gap-5"
+            class="flex flex-col gap-6"
             :state="formState"
             :schema="formSchema"
             @submit="handleSubmit()"
          >
-            <div class="flex flex-col gap-5 lg:flex-row">
-               <!-- region: Fields -->
-               <section class="flex flex-1 flex-col gap-5">
-                  <!-- region: Property type -->
-                  <section>
-                     <Heading3 class="mb-3">
-                        Choose the property type
-                     </Heading3>
+            <!-- Course Type and Category in two columns -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <!-- Course Type -->
+               <UFormField
+                  label="Course Type"
+                  name="courseTypeId"
+               >
+                  <USelectMenu
+                     v-model="formState.CourseTypeId"
+                     :options="apiCourseTypes.courseTypeList"
+                     option-attribute="courseType"
+                     value-attribute="id"
+                     class="w-full"
+                     placeholder="Select course type"
+                  />
+               </UFormField>
 
-                     <div class="grid grid-cols-2 gap-3">
-                        <UFormGroup
-                           label="Type"
-                           name="propertyTypeId"
-                        >
-                           <USelectMenu
-                              v-model="formState.propertyTypeId"
-                              :options="apiPropertyTypes.propertyTypeList"
-                              option-attribute="propertyType"
-                              value-attribute="id"
-                           ></USelectMenu>
-                        </UFormGroup>
-                     </div>
-                  </section>
-                  <!-- endregion: Property type -->
-
-                  <!-- region: Address -->
-                  <section>
-                     <Heading3 class="mb-3">
-                        Update property location
-                     </Heading3>
-
-                     <div class="flex flex-col gap-5">
-                        <div class="grid grid-cols-2 gap-3">
-                           <UFormGroup
-                              label="City"
-                              help="Eg. Colombo 3"
-                           >
-                              <InputCity
-                                 v-model="formState.cityId"
-                                 @select="(payload) => (city = payload)"
-                              />
-                           </UFormGroup>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-3">
-                           <UFormGroup
-                              label="Street"
-                              name="street"
-                           >
-                              <UInput v-model="formState.street" />
-                           </UFormGroup>
-
-                           <UFormGroup
-                              label="Address"
-                              name="address"
-                           >
-                              <UInput v-model="formState.address" />
-                           </UFormGroup>
-                        </div>
-                     </div>
-                  </section>
-                  <!-- endregion: Address -->
-               </section>
-               <!-- endregion: Fields -->
-
-               <!-- region: Map -->
-               <section class="basis-1/3">
-                  <Heading3 class="mb-3">
-                     Click to add a marker
-                  </Heading3>
-                  <div class="z-10">
-                     <LocationMap
-                        v-model="locationMarker"
-                        :height="300"
-                     />
-                  </div>
-
-                  <div class="mt-2 flex justify-center gap-2 text-sm text-second-300">
-                     <p>Latitude: {{ locationMarker.lat }}</p>
-                     <p>Longitude: {{ locationMarker.lng }}</p>
-                  </div>
-               </section>
-               <!-- endregion: Map -->
+               <!-- Course Category -->
+               <UFormField
+                  label="Course Category"
+                  name="courseCategoryId"
+                  help="Select the appropriate category for your course"
+               >
+                  <InputCourseCategory
+                     v-model="formState.courseCategoryId"
+                     @select="(payload) => (courseCategory = payload)"
+                  />
+               </UFormField>
             </div>
 
-            <!-- region: Overview -->
-            <div class="flex flex-col gap-5">
-               <section>
-                  <Heading3 class="mb-3">
-                     Overview
-                  </Heading3>
-
-                  <div class="flex flex-col gap-5">
-                     <div class="grid grid-cols-1 gap-3">
-                        <UFormGroup label="Description">
-                           <UTextarea
-                              v-model="formState.description"
-                              :rows="10"
-                              resize
-                           />
-                        </UFormGroup>
-                     </div>
-
-                     <div class="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
-                        <UFormGroup label="No. of bedrooms">
-                           <UInput v-model="formState.rooms" />
-                        </UFormGroup>
-
-                        <UFormGroup label="No. of bathrooms">
-                           <UInput v-model="formState.bathrooms" />
-                        </UFormGroup>
-
-                        <UFormGroup label="No. of floors">
-                           <UInput v-model="formState.floors" />
-                        </UFormGroup>
-
-                        <UFormGroup
-                           label="Floor area"
-                           hint="in Sq.Ft."
-                        >
-                           <UInput
-                              v-model="formState.floorArea"
-                              placeholder="Eg. 1200"
-                           />
-                        </UFormGroup>
-                     </div>
-                  </div>
-               </section>
-            </div>
-            <!-- endregion: Overview -->
-
-            <!-- region: Property extra details -->
-            <div class="flex flex-col gap-5">
-               <section>
-                  <Heading3 class="mb-3">
-                     Extra details
-                  </Heading3>
-
-                  <div class="flex flex-col gap-5">
-                     <div class="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
-                        <UFormGroup label="Furnished state">
-                           <USelectMenu
-                              v-model="formState.furnishedState"
-                              :options="furnishedStateOptions"
-                              option-attribute="label"
-                              value-attribute="id"
-                           />
-                        </UFormGroup>
-
-                        <UFormGroup label="Car parking space">
-                           <UInput v-model="formState.carParkingCapacity" />
-                        </UFormGroup>
-
-                        <UFormGroup label="Bike parking space">
-                           <UInput v-model="formState.bikeParkingCapacity" />
-                        </UFormGroup>
-                     </div>
-                  </div>
-               </section>
-            </div>
-            <!-- endregion: Property extra details -->
-
-            <!-- region: Error message -->
-            <section
-               v-if="submitErrors"
-               class="flex w-auto justify-center"
+            <!-- Description in full width -->
+            <UFormField
+               label="Course Description"
+               name="description"
+               help="Provide a detailed description of your course (minimum 20 characters)"
             >
-               <AlertError>
-                  {{ submitErrors }}
-               </AlertError>
-            </section>
-            <!-- endregion: Error message -->
+               <UTextarea
+                  v-model="formState.description"
+                  :rows="8"
+                  resize
+                  class="w-full"
+                  placeholder="Enter your course description here..."
+               />
+            </UFormField>
 
-            <footer class="flex w-full justify-center gap-3">
+            <!-- Error message -->
+            <AlertError v-if="submitErrors">
+               {{ submitErrors }}
+            </AlertError>
+
+            <!-- Action buttons -->
+            <div class="flex justify-center gap-4 mt-2">
                <ButtonUpdate
                   type="submit"
                   :loading="isSubmitting"
@@ -299,9 +155,9 @@ async function handleSubmit() {
                </ButtonUpdate>
                <ButtonCancel
                   color="gray"
-                  :to="`/app/landlord/properties/${property.id}`"
-               ></ButtonCancel>
-            </footer>
+                  :to="`/app/teacher/courses/${course.id}`"
+               />
+            </div>
          </UForm>
       </div>
    </section>

@@ -1,21 +1,17 @@
-import type {
-   PropertyFeature,
-} from '~~/__backend/course-features/types';
-import {
-   PropertyFeatureListSchema,
-} from '~~/__backend/course-features/types';
-
 /* ---------------------------------------------------------------------------------------------- */
+
+import type { CourseFeature } from '~~/__backend/course-features/types';
+import { CourseFeatureListSchema } from '~~/__backend/course-features/types';
 
 /**
  * Get all the course features
  */
-export function useApiGetAllPropertyFeatures() {
-   const { data, error, execute, status } = useApiFetch('/property/features');
+export function useApiGetAllCourseFeatures() {
+   const { data, error, execute, status } = useApiFetch('/course/features');
 
-   const features = computed<PropertyFeature[]>(() => {
+   const features = computed<CourseFeature[]>(() => {
       if (!error.value && data.value) {
-         return PropertyFeatureListSchema.parse(data.value);
+         return CourseFeatureListSchema.parse(data.value);
       }
       return [];
    });

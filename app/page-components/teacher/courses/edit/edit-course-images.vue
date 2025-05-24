@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import type { Property, PropertyImage } from '~~/__backend/properties/types';
+import type { Course, CourseImage } from '~~/__backend/courses/types';
+import { useDropZone } from '@vueuse/core';
 import { FetchError } from 'ofetch';
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const { property } = defineProps<{
-   property: Property;
+const { course } = defineProps<{
+   course: Course;
 }>();
 
 const emit = defineEmits(['complete']);
 
 const images = computed(() => {
-   return property.propertyImages;
+   return course.courseImages;
 });
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -73,7 +74,7 @@ async function uploadImage(image: File) {
    formData.append('image', image);
 
    try {
-      await useNuxtApp().$api(`/property/${property.id}/image`, {
+      await useNuxtApp().$api(`/course/${course.id}/image`, {
          method: 'POST',
          body: formData,
       });
@@ -81,7 +82,7 @@ async function uploadImage(image: File) {
       toast.add({
          title: 'Image uploaded',
          description: `${image.name} uploaded`,
-         color: 'green',
+         color: 'success',
       });
    }
    catch (error) {
@@ -90,7 +91,7 @@ async function uploadImage(image: File) {
             toast.add({
                title: 'Image not uploaded',
                description: error.data.message[0].message,
-               color: 'red',
+               color: 'error',
             });
          }
       }
@@ -98,7 +99,7 @@ async function uploadImage(image: File) {
          toast.add({
             title: 'Image not uploaded',
             description: `${image.name} is failed to upload`,
-            color: 'red',
+            color: 'error',
          });
       }
    }
@@ -136,16 +137,16 @@ async function handleUploadImages() {
  * Delete image
  */
 
-async function handleDeleteImage(image: PropertyImage) {
+async function handleDeleteImage(image: CourseImage) {
    try {
-      await useNuxtApp().$api(`/property/image/${image.id}`, {
+      await useNuxtApp().$api(`/course/image/${image.id}`, {
          method: 'DELETE',
       });
 
       toast.add({
          title: 'Image deleted',
          description: `The image is deleted from the property`,
-         color: 'red',
+         color: 'error',
       });
 
       emit('complete');
@@ -160,16 +161,16 @@ async function handleDeleteImage(image: PropertyImage) {
  * Set as primary
  */
 
-async function handleSetAsPrimary(image: PropertyImage) {
+async function handleSetAsPrimary(image: Course) {
    try {
-      await useNuxtApp().$api(`/property/image/${image.id}/primary`, {
+      await useNuxtApp().$api(`/course/image/${image.id}/primary`, {
          method: 'PUT',
       });
 
       toast.add({
          title: 'Status updated',
          description: `Image set as primary`,
-         color: 'green',
+         color: 'success',
       });
 
       emit('complete');
@@ -185,7 +186,7 @@ async function handleSetAsPrimary(image: PropertyImage) {
 <template>
    <section>
       <header class="mb-5">
-         <Heading1>Property images</Heading1>
+         <Heading1>Course images</Heading1>
       </header>
 
       <!-- region: Image upload section -->
@@ -203,7 +204,7 @@ async function handleSetAsPrimary(image: PropertyImage) {
                type="file"
                accept="image/*"
                @change="handleFileInputChange"
-            />
+            >
 
             <div class="flex-1 shrink-0 text-first-400">
                Or drop your images here...
@@ -220,7 +221,7 @@ async function handleSetAsPrimary(image: PropertyImage) {
                   class="size-64 object-cover"
                   :src="image"
                   alt=""
-               />
+               >
             </div>
 
             <div class="flex justify-center">
@@ -270,7 +271,7 @@ async function handleSetAsPrimary(image: PropertyImage) {
                   <UButton
                      square
                      icon="i-fa6-solid:trash-can"
-                     color="red"
+                     color="error"
                      size="xs"
                      @click="handleDeleteImage(image)"
                   />
@@ -279,7 +280,7 @@ async function handleSetAsPrimary(image: PropertyImage) {
                      size="xs"
                      icon="i-fa6-solid:star"
                      @click="handleSetAsPrimary(image)"
-                  ></UButton>
+                  />
                </section>
             </div>
          </div>
