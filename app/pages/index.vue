@@ -29,7 +29,7 @@ useAppTitle('Welcome');
                </h4>
 
                <div class="text-lg font-bold text-primaryColor">
-                  "Stay Connected with Your Tutors Anytime, Anywhere"
+                  "Stay Connected with Your Tutors simply Anytime, Anywhere"
                </div>
 
                <div class="mt-10 text-center lg:text-left">
