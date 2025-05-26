@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { iconLibrary } from '~/utils/icons-utils';
 
 const { user, clear } = useUserSession();
 
@@ -31,11 +32,16 @@ const userAvatar = computed(() => {
 </script>
 
 <template>
+   <!-- Debug message -->
+   <div v-if="!user" class="text-red-500 text-sm">
+      No user data
+   </div>
+
    <div
       v-if="user"
       class="flex items-center justify-center gap-3"
    >
-      <UPopover class="flex items-center justify-center">
+      <UPopover :popper="{ placement: 'bottom-end' }" class="flex items-center justify-center">
          <UAvatar
             class="user-widget-avatar"
             size="md"
@@ -53,10 +59,10 @@ const userAvatar = computed(() => {
                <!-- region: user info -->
                <div class="border-b border-b-second-100 bg-second-50 p-4">
                   <p class="text-primaryColor">
-                     {{ user.profile?.fullName }}
+                     {{ user.profile?.fullName || 'User Name' }}
                   </p>
                   <p class="text-sm text-second-500">
-                     {{ user.email }}
+                     {{ user.email || 'user@example.com' }}
                   </p>
                </div>
                <!-- endregion: user info -->

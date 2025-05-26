@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Logo from 'assets/logo.vue';
 import dayjs from 'dayjs';
+import ButtonSignOut from '~/components/button/button-sign-out.vue';
+import UserWidget from '~/components/user/user-widget.vue';
 
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -74,6 +76,10 @@ const isOpen = ref(false);
                               </div>
 
                               <UserWidget />
+
+                              <div v-if="loggedIn" class="flex justify-center mt-2">
+                                 <ButtonSignOut />
+                              </div>
                            </div>
 
                            <div class="flex w-full items-center justify-center">
@@ -123,6 +129,8 @@ const isOpen = ref(false);
                   </UButton>
 
                   <UserWidget />
+
+                  <ButtonSignOut />
                </aside>
                <!-- endregion: aside-right -->
             </div>
@@ -138,9 +146,16 @@ const isOpen = ref(false);
          <div class="w-full border-t border-first-50" />
 
          <div class="p-5 text-second-400 lg:px-0 lg:py-5 text-sm uppercase">
-            <div class="flex items-center">
-               <UIcon name="i-ic:baseline-copyright" />
-               <div>{{ dayjs().format('YYYY') }} Tutor Connect. All rights reserved.</div>
+            <div class="flex items-center justify-between">
+               <div class="flex items-center">
+                  <UIcon name="i-ic:baseline-copyright" />
+                  <div>{{ dayjs().format('YYYY') }} Tutor Connect. All rights reserved.</div>
+               </div>
+
+               <!-- Test button to verify it works -->
+               <div v-if="loggedIn">
+                  <ButtonSignOut>Logout Test</ButtonSignOut>
+               </div>
             </div>
          </div>
       </footer>
