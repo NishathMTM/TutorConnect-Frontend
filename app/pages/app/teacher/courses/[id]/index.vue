@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useApiGetCourseDetails } from '~~/__backend/courses/api';
+import CourseListingsView from '~/page-components/teacher/courses/course-listings-view.vue';
 import SingleCourseInfo from '~/page-components/teacher/courses/single/single-course-info.vue';
 
 definePageMeta({
@@ -58,7 +59,11 @@ watch(
          </section>
          <!-- endregion: Edit options -->
 
-         <UDivider class="my-5" />
+         <div class="my-5 border-t border-gray-200" />
+
+         <!-- region: Course listing details -->
+         <CourseListingsView :course="apiGetCourse.course" />
+         <!-- endregion: Course listing details -->
       </FullContainer>
    </TeacherLayout>
 </template>

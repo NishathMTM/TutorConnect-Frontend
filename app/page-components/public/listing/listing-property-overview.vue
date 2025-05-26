@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import type { Property } from '~~/__backend/properties/types';
+import type { PublicPropertyInfo } from '~~/__backend/public/types';
+
+/* ---------------------------------------------------------------------------------------------- */
 
 const { property } = defineProps<{
-   property: Property;
+   property: PublicPropertyInfo;
 }>();
 
 const furnishedStateString = {
@@ -13,37 +15,20 @@ const furnishedStateString = {
 </script>
 
 <template>
-   <section class="flex flex-col md:flex-row gap-5 border border-first-100 rounded-xl p-3">
-      <!-- region: left -->
-      <aside>
-         <PropertyInfoCardImages
-            :images="property.propertyImages"
-         />
-      </aside>
-      <!-- endregion: left -->
+   <div class="flex flex-col gap-10">
+      <section id="property-overview">
+         <header class="section-header">
+            Property Overview
+         </header>
 
-      <!-- region: main -->
-      <div class="flex-1 w-full">
-         <!-- region: header -->
-         <div class="mb-5">
-            <div class="text-second-400 flex items-center gap-1">
-               <UIcon :name="iconLibrary.property.propertyType" />
+         <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <CourseOverviewItem
+               title="Property type"
+               :icon="iconLibrary.property.propertyType"
+            >
                {{ property.propertyType.propertyType }}
-            </div>
+            </CourseOverviewItem>
 
-            <h2 class="text-2xl font-bold text-primaryColor">
-               {{ property.address }}
-            </h2>
-
-            <div class="mt-2 flex items-center text-first-500 uppercase">
-               <UIcon :name="iconLibrary.map" />
-               <p>{{ property.city.city }}</p>
-            </div>
-         </div>
-         <!-- endregion: header -->
-
-         <!-- region: features -->
-         <div class="grid grid-cols-2 gap-3 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
             <CourseOverviewItem
                title="Floor area"
                :icon="iconLibrary.property.floorArea"
@@ -95,22 +80,39 @@ const furnishedStateString = {
                {{ furnishedStateString[property.furnishedState] }}
             </CourseOverviewItem>
          </div>
-         <!-- endregion: features -->
-      </div>
-      <!-- endregion: main -->
-   </section>
+      </section>
+
+      <section>
+         <header class="section-header">
+            Property Features
+         </header>
+
+         <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <div
+               v-for="feature in property.propertyFeatures"
+               :key="feature.id"
+               class="rounded-md border border-first-50 bg-first-50/50 px-4 py-2"
+            >
+               <div class="leading-none">
+                  {{ feature.feature }}
+               </div>
+            </div>
+         </div>
+
+         <div v-if="property.propertyFeatures.length === 0">
+            No features found.
+         </div>
+      </section>
+   </div>
 </template>
 
 <style scoped lang="postcss">
-.feature-item {
-   @apply flex items-center gap-1 rounded-lg bg-second-50 px-2 py-1 shrink-0;
+.icon-wrapper {
+   @apply flex size-8 items-center justify-center rounded-full bg-first-600 p-1;
+   @apply text-white;
 }
 
-.feature-item p {
-   @apply text-sm  text-second-600;
-}
-
-.feature-item .feature-item-icon {
-   @apply text-second-500;
+.section-header {
+   @apply mb-2 text-xl font-bold text-second-600;
 }
 </style>

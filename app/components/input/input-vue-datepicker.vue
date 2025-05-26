@@ -2,6 +2,7 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import { watchImmediate } from '@vueuse/shared';
 import dayjs from 'dayjs';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 /* ---------------------------------------------------------------------------------------------- */
 

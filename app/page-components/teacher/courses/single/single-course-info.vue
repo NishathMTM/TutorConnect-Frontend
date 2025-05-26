@@ -88,16 +88,16 @@ function convertNewlinesToBr(text: string): string {
          <!-- region: Overview -->
          <section id="property-overview">
             <header class="section-header">
-               Overview
+               Class Summery
             </header>
 
             <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5">
-               <PropertyOverviewItem
+               <CourseOverviewItem
                   title="Property type"
                   :icon="iconLibrary.property.propertyType"
                >
                   {{ course.courseType.courseType }}
-               </PropertyOverviewItem>
+               </CourseOverviewItem>
             </div>
          </section>
 
