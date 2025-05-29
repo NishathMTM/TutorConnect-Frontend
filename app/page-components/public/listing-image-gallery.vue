@@ -1,15 +1,15 @@
 <script setup lang="ts">
 // Define the type for individual image
-interface PropertyImage {
+interface CourseImage {
    id: number;
-   propertyId: number;
+   courseId: number;
    isPrimary: boolean;
    imageUrlKey: string;
    imageUrl: string;
 }
 
 const props = defineProps<{
-   images: PropertyImage[];
+   images: CourseImage[];
 }>();
 
 // Process images to show primary image first
@@ -21,7 +21,7 @@ const processedImages = computed(() => {
    const primaryImage = props.images.find(img => img.isPrimary);
    const primaryId = primaryImage?.id;
 
-   let sortedImages: PropertyImage[] = [];
+   let sortedImages: CourseImage[] = [];
    if (primaryImage) {
       const otherImages = props.images.filter(img => img.id !== primaryId);
       sortedImages = [primaryImage, ...otherImages];
@@ -69,7 +69,7 @@ function handleImageLoad(imageId: number) {
                class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
                alt="Property main view"
                @load="handleImageLoad(processedImages[0].id)"
-            />
+            >
             <div
                v-if="processedImages[0]?.isPrimary"
                class="absolute top-2 left-2 bg-black/50 px-2 py-1 rounded-full"
@@ -96,7 +96,7 @@ function handleImageLoad(imageId: number) {
                      class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
                      :alt="`Property view ${index + 1}`"
                      @load="handleImageLoad(image.id)"
-                  />
+                  >
                </div>
             </div>
 
@@ -116,7 +116,7 @@ function handleImageLoad(imageId: number) {
                      class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
                      :alt="`Property view ${index + 3}`"
                      @load="handleImageLoad(image.id)"
-                  />
+                  >
                </div>
             </div>
          </div>

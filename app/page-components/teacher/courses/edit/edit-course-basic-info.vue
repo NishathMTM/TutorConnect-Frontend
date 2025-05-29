@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Course } from '~~/__backend/courses/types';
 import { z } from 'zod';
-import { useApiGetAllCourseTypes } from '~~/__backend/courses/api';
 
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -13,14 +12,15 @@ const toast = useToast();
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const apiCourseTypes = reactive(useApiGetAllCourseTypes());
-apiCourseTypes.execute();
+// const apiCourseTypes = reactive(useApiGetAllCourseTypes());
+// apiCourseTypes.execute();
 
 /* ---------------------------------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------------------------------- */
 
 const courseCategory = ref(course.courseCategory);
+const courseType = ref(course.courseType);
 
 const formSchema = z.object({
    description: z.string().min(20, 'Description is required'),
@@ -28,13 +28,17 @@ const formSchema = z.object({
 
 const formState = reactive({
    id: course.id,
-   CourseTypeId: course.courseTypeId,
+   courseTypeId: course.courseTypeId,
    courseCategoryId: course.courseCategoryId,
    description: course.description ?? '',
 });
 
 watch(courseCategory, (courseCategory) => {
    formState.courseCategoryId = courseCategory.id;
+});
+
+watch(courseType, (courseType) => {
+   formState.courseTypeId = courseType.id;
 });
 
 const submitDisabled = ref(false);
@@ -101,13 +105,9 @@ async function handleSubmit() {
                   label="Course Type"
                   name="courseTypeId"
                >
-                  <USelectMenu
-                     v-model="formState.CourseTypeId"
-                     :options="apiCourseTypes.courseTypeList"
-                     option-attribute="courseType"
-                     value-attribute="id"
-                     class="w-full"
-                     placeholder="Select course type"
+                  <InputCourseType
+                     v-model="formState.courseTypeId"
+                     @select="(payload) => (courseType = payload)"
                   />
                </UFormField>
 

@@ -56,48 +56,6 @@ const { listing } = defineProps<{
             >
                {{ listing.course.courseType.courseType }}
             </div>
-
-            <!--            <CourseListItemFeatureItem -->
-            <!--               title="Bedrooms" -->
-            <!--               :icon="iconLibrary.property.bedroom" -->
-            <!--            > -->
-            <!--               {{ listing.course }} -->
-            <!--            </CourseListItemFeatureItem> -->
-
-            <!--            <PropertyListItemFeatureItem -->
-            <!--               title="Bathrooms" -->
-            <!--               :icon="iconLibrary.property.bathroom" -->
-            <!--            > -->
-            <!--               {{ listing.property.bathrooms }} -->
-            <!--            </PropertyListItemFeatureItem> -->
-
-            <!--            <PropertyListItemFeatureItem -->
-            <!--               title="Floors" -->
-            <!--               :icon="iconLibrary.property.floors" -->
-            <!--            > -->
-            <!--               {{ listing.property.floors }} -->
-            <!--            </PropertyListItemFeatureItem> -->
-
-            <!--            <PropertyListItemFeatureItem -->
-            <!--               title="Car parking" -->
-            <!--               :icon="iconLibrary.property.carParking" -->
-            <!--            > -->
-            <!--               {{ listing.property.carParkingCapacity }} -->
-            <!--            </PropertyListItemFeatureItem> -->
-
-            <!--            <PropertyListItemFeatureItem -->
-            <!--               title="Bike parking" -->
-            <!--               :icon="iconLibrary.property.bikeParking" -->
-            <!--            > -->
-            <!--               {{ listing.property.bikeParkingCapacity }} -->
-            <!--            </PropertyListItemFeatureItem> -->
-
-            <!--            <PropertyListItemFeatureItem -->
-            <!--               title="Area" -->
-            <!--               :icon="iconLibrary.property.floorArea" -->
-            <!--            > -->
-            <!--               {{ formatNumber(listing.property.floorArea) }} sq.ft -->
-            <!--            </PropertyListItemFeatureItem> -->
          </div>
          <!-- endregion: quick features -->
 

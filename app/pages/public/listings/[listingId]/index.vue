@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { usePublicApiGetPropertyListing } from '~~/__backend/public/api';
-import ListingBookAnAppointment
-   from '~/page-components/public/listing/listing-book-an-appointment.vue';
-import ListingPropertyOverview from '~/page-components/public/listing/listing-property-overview.vue';
-import { formatLKR, formatNumber } from '~/utils/formatting-utils';
+import { usePublicApiGetCourseListing } from '~~/__backend/public/api';
+
+import ListingCourseOverview from '~/page-components/public/listing/listing-course-overview.vue';
+import { formatLKR } from '~/utils/formatting-utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 
 const { listingId } = useRoute().params;
 
-const apiListing = reactive(usePublicApiGetPropertyListing(ref(Number(listingId))));
+const apiListing = reactive(usePublicApiGetCourseListing(ref(Number(listingId))));
 apiListing.execute();
 
-const property = computed(() => {
+const course = computed(() => {
    if (apiListing.listing) {
-      return apiListing.listing?.property;
+      return apiListing.listing?.course;
    }
    return null;
 });
@@ -29,8 +28,8 @@ const listing = computed(() => {
 /* ---------------------------------------------------------------------------------------------- */
 
 const images = computed(() => {
-   if (property.value) {
-      return property.value.propertyImages;
+   if (course.value) {
+      return course.value.courseImages;
    }
    return [];
 });
@@ -38,7 +37,7 @@ const images = computed(() => {
 /* ---------------------------------------------------------------------------------------------- */
 /*
  * Path: /listings/[listingId]
- * Description: Show a single property listing page
+ * Description: Show a single course listing page
  */
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -46,7 +45,7 @@ const images = computed(() => {
 
 <template>
    <PublicLayout>
-      <div v-if="listing && property" class="container mx-auto">
+      <div v-if="listing && course" class="container mx-auto">
          <!-- Main Content Container -->
          <div class="max-w-7xl mx-auto px-4 py-8 lg:px-8">
             <!-- Breadcrumb -->
@@ -59,7 +58,7 @@ const images = computed(() => {
                   </li>
                   <li><UIcon name="i-uil:angle-right" /></li>
                   <li class="font-medium text-second-700">
-                     {{ property.city.city }}
+                     {{ course.courseCategory.courseCategory }}
                   </li>
                </ul>
             </nav>
@@ -71,10 +70,10 @@ const images = computed(() => {
                </h1>
                <div class="flex items-center gap-2 text-second-600">
                   <UIcon :name="iconLibrary.map" class="size-5" />
-                  <span class="font-semibold uppercase">{{ property.city.city }}</span>
+                  <span class="font-semibold uppercase">{{ course.courseCategory.courseCategory }}</span>
                   <span class="text-second-400">•</span>
                   <span class="text-green-600 font-bold">
-                     {{ formatLKR(listing.rentExpectation) }}
+                     {{ formatLKR(listing.hourlyRate) }}
                      <span class="text-sm font-medium">/month</span>
                   </span>
                </div>
@@ -92,9 +91,9 @@ const images = computed(() => {
                   <!-- Property Overview -->
                   <section class="bg-white rounded-xl p-6 shadow-sm">
                      <h2 class="text-xl font-bold text-second-800 mb-4">
-                        Property Overview
+                        Class Overview
                      </h2>
-                     <ListingPropertyOverview :property="property" />
+                     <ListingCourseOverview :course="course" />
                   </section>
 
                   <!-- Description -->
@@ -113,23 +112,9 @@ const images = computed(() => {
                <!-- Right Column (1/3 width) -->
                <div class="lg:col-span-1 space-y-6">
                   <!-- Booking Card -->
-                  <div class="bg-white rounded-xl p-6 shadow-sm border border-first-100">
-                     <ListingBookAnAppointment :listing="listing" />
-                  </div>
-
-                  <!-- Map Card -->
-                  <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-first-100">
-                     <h2 class="text-lg font-semibold p-4 border-b border-first-100">
-                        Location
-                     </h2>
-                     <div class="aspect-[4/3]">
-                        <LocationMapReadonly
-                           v-if="property"
-                           :lat="property.lat"
-                           :lng="property.lng"
-                        />
-                     </div>
-                  </div>
+                  <!--                  <div class="bg-white rounded-xl p-6 shadow-sm border border-first-100"> -->
+                  <!--                     <ListingBookAnAppointment :listing="listing" /> -->
+                  <!--                  </div> -->
                </div>
             </div>
          </div>

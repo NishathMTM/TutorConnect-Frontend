@@ -58,42 +58,42 @@ watch(
 <template>
    <div class="flex flex-col gap-5">
       <!-- Filters -->
-      <!--      <PageHeader v-if="full"> -->
-      <!--         <div class="flex flex-col gap-3 lg:flex-row lg:items-end"> -->
-      <!--            <InputPropertyType -->
-      <!--               v-model="query.propertyTypeId" -->
-      <!--               class="w-40" -->
-      <!--            /> -->
-      <!--            <InputCity -->
-      <!--               v-model="query.cityId" -->
-      <!--               class="w-40" -->
-      <!--            /> -->
-      <!--            <div class="flex items-center gap-2"> -->
-      <!--               <span class="text-sm text-gray-500">Rent Range</span> -->
-      <!--               <div class="flex items-center gap-2"> -->
-      <!--                  <UInput -->
-      <!--                     v-model="query.minRentExpectation" -->
-      <!--                     type="number" -->
-      <!--                     placeholder="Min" -->
-      <!--                     class="w-32" -->
-      <!--                  /> -->
-      <!--                  <span class="text-gray-500">-</span> -->
-      <!--                  <UInput -->
-      <!--                     v-model="query.maxRentExpectation" -->
-      <!--                     type="number" -->
-      <!--                     placeholder="Max" -->
-      <!--                     class="w-32" -->
-      <!--                  /> -->
-      <!--               </div> -->
-      <!--            </div> -->
-      <!--            <ButtonCancel -->
-      <!--               v-if="canReset" -->
-      <!--               @click="reset()" -->
-      <!--            > -->
-      <!--               Reset -->
-      <!--            </ButtonCancel> -->
-      <!--         </div> -->
-      <!--      </PageHeader> -->
+      <PageHeader v-if="full">
+         <div class="flex flex-col gap-3 lg:flex-row lg:items-end">
+            <InputCourseType
+               v-model="query.courseTypeId"
+               class="w-40"
+            />
+            <InputCourseCategory
+               v-model="query.courseCategoryId"
+               class="w-40"
+            />
+            <div class="flex items-center gap-2">
+               <span class="text-sm text-gray-500">Rent Range</span>
+               <div class="flex items-center gap-2">
+                  <UInput
+                     v-model="query.minHourlyRate"
+                     type="number"
+                     placeholder="Min"
+                     class="w-32"
+                  />
+                  <span class="text-gray-500">-</span>
+                  <UInput
+                     v-model="query.maxHourlyRate"
+                     type="number"
+                     placeholder="Max"
+                     class="w-32"
+                  />
+               </div>
+            </div>
+            <ButtonCancel
+               v-if="canReset"
+               @click="reset()"
+            >
+               Reset
+            </ButtonCancel>
+         </div>
+      </PageHeader>
 
       <!-- Listings Grid -->
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
