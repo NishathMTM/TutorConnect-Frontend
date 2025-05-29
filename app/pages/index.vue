@@ -69,7 +69,7 @@ useAppTitle('Welcome');
             <Heading1>Recently listed Classes</Heading1>
          </header>
 
-         <!--         <PublicCourseListings /> -->
+         <PublicCourseListings />
 
          <footer class="mt-5 flex justify-center">
             <NuxtLink

@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { useApiGetAllPropertyListingsByLandlord } from '~~/__backend/course-listings/api';
+import { useApiGetAllCourseListingsByTeacher } from '~~/__backend/course-listings/api';
 
 const { user } = useUserSession();
 
-const apiListings = reactive(useApiGetAllPropertyListingsByLandlord(ref(user.value!.id)));
+const apiListings = reactive(useApiGetAllCourseListingsByTeacher(ref(user.value!.id)));
 </script>
 
 <template>
    <section>
       <header class="mb-5">
          <Heading2>
-            Available Listings
+            Available Class Listings
          </Heading2>
       </header>
 
-      <!-- region: table of listings -->
-      <PropertyListingsTable dashboard-mode :listings="apiListings.listings" />
-      <!-- endregion: table of listings -->
+      <!--      &lt;!&ndash; region: table of listings &ndash;&gt; -->
+      <!--      <CourseListingsView :listings="apiListings.listings" /> -->
+      <!--      &lt;!&ndash; endregion: table of listings &ndash;&gt; -->
    </section>
 </template>
 

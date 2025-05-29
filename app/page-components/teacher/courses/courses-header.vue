@@ -18,39 +18,30 @@ const queryParams = reactive({} as ApiGetAllCoursesByTeacherQuery);
 /* ---------------------------------------------------------------------------------------------- */
 
 queryParams.courseCategoryId = modelQueryParams.value.courseCategoryId;
-//
-// watchDeep(queryParams, (params) => {
-//    if (params.courseCategoryId !== '') {
-//       modelQueryParams.value.courseCategoryId = params.courseCategoryId;
-//    }
-//    else {
-//       modelQueryParams.value.courseCategoryId = undefined;
-//    }
-// });
-//
-// function apply() {
-//    if (queryParams.query !== '') {
-//       modelQueryParams.value.query = queryParams.query;
-//    }
-//    else {
-//       modelQueryParams.value.query = undefined;
-//    }
-// }
-//
+
+function apply() {
+   if (queryParams.query !== '') {
+      modelQueryParams.value.query = queryParams.query;
+   }
+   else {
+      modelQueryParams.value.query = undefined;
+   }
+}
+
 // /* ---------------------------------------------------------------------------------------------- */
-//
-// const canReset = computed(() => {
-//    if (modelQueryParams.value.courseCategoryId !== undefined) {
-//       return true;
-//    }
-//    return modelQueryParams.value.courseTypeId !== undefined;
-// });
-//
-// function reset() {
-//    modelQueryParams.value.courseCategoryId = undefined;
-//    modelQueryParams.value.query = undefined;
-//    modelQueryParams.value.courseTypeId = undefined;
-// }
+
+const canReset = computed(() => {
+   if (modelQueryParams.value.courseCategoryId !== undefined) {
+      return true;
+   }
+   return modelQueryParams.value.courseTypeId !== undefined;
+});
+
+function reset() {
+   modelQueryParams.value.courseCategoryId = undefined;
+   modelQueryParams.value.query = undefined;
+   modelQueryParams.value.courseTypeId = undefined;
+}
 
 /* ---------------------------------------------------------------------------------------------- */
 </script>
@@ -70,49 +61,50 @@ queryParams.courseCategoryId = modelQueryParams.value.courseCategoryId;
                class="w-40"
             />
 
-            <!--            <UPopover> -->
-            <!--               <UButton -->
-            <!--                  label="Filters" -->
-            <!--                  color="gray" -->
-            <!--                  icon="i-fluent:filter-24-regular" -->
-            <!--               /> -->
+            <UPopover>
+               <UButton
+                  label="Filters"
+                  color="gray"
+                  icon="i-fluent:filter-24-regular"
+               />
 
-            <!--               <template #panel> -->
-            <!--                  <div class="flex flex-col gap-3 p-2"> -->
-            <!--                     <div> -->
-            <!--                        <UFormField label="Search query"> -->
-            <!--                           <UInput v-model="queryParams.query" /> -->
-            <!--                        </UFormField> -->
-            <!--                     </div> -->
+               <template #panel>
+                  <div class="flex flex-col gap-3 p-2">
+                     <div>
+                        <UFormField label="Search query">
+                           <UInput v-model="queryParams.query" />
+                        </UFormField>
+                     </div>
 
-            <!--                     <footer class="flex justify-end"> -->
-            <!--                        <UButton -->
-            <!--                           icon="i-fluent:checkmark-24-regular" -->
-            <!--                           @click="apply()" -->
-            <!--                        > -->
-            <!--                           Apply -->
-            <!--                        </UButton> -->
-            <!--                     </footer> -->
-            <!--                  </div> -->
-            <!--               </template> -->
-            <!--            </UPopover> -->
+                     <footer class="flex justify-end">
+                        <UButton
+                           icon="i-fluent:checkmark-24-regular"
+                           @click="apply()"
+                        >
+                           Apply
+                        </UButton>
+                     </footer>
+                  </div>
+               </template>
+            </UPopover>
 
-            <!--            <ButtonCancel -->
-            <!--               v-if="canReset" -->
-            <!--               @click="reset()" -->
-            <!--            > -->
-            <!--               Reset -->
-            <!--            </ButtonCancel> -->
+            <ButtonCancel
+               v-if="canReset"
+               @click="reset()"
+            >
+               Reset
+            </ButtonCancel>
          </div>
       </section>
+
       <!-- endregion: left -->
 
       <!-- region: right -->
       <div>
-         <AddNewCourse1 />
+         <AddNewCourse />
       </div>
       <!-- endregion: right -->
-   </PageHeader>
+   </pageheader>
 </template>
 
 <style scoped lang="postcss"></style>

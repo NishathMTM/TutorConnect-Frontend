@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { PublicPropertyListing } from '~~/__backend/public/types';
-import { formatLKR, formatNumber } from '~/utils/formatting-utils';
-import { iconLibrary } from '~/utils/icons-utils';
+import type { PublicCourseListing } from '~~/__backend/public/types';
+import { formatLKR } from '~/utils/formatting-utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 
 const { listing } = defineProps<{
-   listing: PublicPropertyListing;
+   listing: PublicCourseListing;
 }>();
 </script>
 
@@ -22,18 +21,18 @@ const { listing } = defineProps<{
                   class="size-6"
                   name="i-fluent:location-ripple-16-regular"
                />
-               <p>{{ listing.property.city.city }}</p>
+               <p>{{ listing.course.courseCategory.courseCategory }}</p>
             </div>
          </div>
 
          <div class="h-36 overflow-hidden">
             <ULink :to="`/public/listings/${listing.id}`">
                <img
-                  v-if="listing.property.primaryImage"
+                  v-if="listing.course.primaryImage"
                   class="h-36 w-full object-cover transition-all group-hover:scale-125"
-                  :src="listing.property.primaryImage?.imageUrl"
+                  :src="listing.course.primaryImage?.imageUrl"
                   :alt="listing.title"
-               />
+               >
                <div
                   v-else
                   class="flex h-full items-center justify-center rounded bg-first-100"
@@ -55,58 +54,58 @@ const { listing } = defineProps<{
             <div
                class="flex items-center justify-center rounded-lg bg-first-300 px-4 text-xs font-bold uppercase text-first-500"
             >
-               {{ listing.property.propertyType.propertyType }}
+               {{ listing.course.courseType.courseType }}
             </div>
 
-            <PropertyListItemFeatureItem
-               title="Bedrooms"
-               :icon="iconLibrary.property.bedroom"
-            >
-               {{ listing.property.rooms }}
-            </PropertyListItemFeatureItem>
+            <!--            <CourseListItemFeatureItem -->
+            <!--               title="Bedrooms" -->
+            <!--               :icon="iconLibrary.property.bedroom" -->
+            <!--            > -->
+            <!--               {{ listing.course }} -->
+            <!--            </CourseListItemFeatureItem> -->
 
-            <PropertyListItemFeatureItem
-               title="Bathrooms"
-               :icon="iconLibrary.property.bathroom"
-            >
-               {{ listing.property.bathrooms }}
-            </PropertyListItemFeatureItem>
+            <!--            <PropertyListItemFeatureItem -->
+            <!--               title="Bathrooms" -->
+            <!--               :icon="iconLibrary.property.bathroom" -->
+            <!--            > -->
+            <!--               {{ listing.property.bathrooms }} -->
+            <!--            </PropertyListItemFeatureItem> -->
 
-            <PropertyListItemFeatureItem
-               title="Floors"
-               :icon="iconLibrary.property.floors"
-            >
-               {{ listing.property.floors }}
-            </PropertyListItemFeatureItem>
+            <!--            <PropertyListItemFeatureItem -->
+            <!--               title="Floors" -->
+            <!--               :icon="iconLibrary.property.floors" -->
+            <!--            > -->
+            <!--               {{ listing.property.floors }} -->
+            <!--            </PropertyListItemFeatureItem> -->
 
-            <PropertyListItemFeatureItem
-               title="Car parking"
-               :icon="iconLibrary.property.carParking"
-            >
-               {{ listing.property.carParkingCapacity }}
-            </PropertyListItemFeatureItem>
+            <!--            <PropertyListItemFeatureItem -->
+            <!--               title="Car parking" -->
+            <!--               :icon="iconLibrary.property.carParking" -->
+            <!--            > -->
+            <!--               {{ listing.property.carParkingCapacity }} -->
+            <!--            </PropertyListItemFeatureItem> -->
 
-            <PropertyListItemFeatureItem
-               title="Bike parking"
-               :icon="iconLibrary.property.bikeParking"
-            >
-               {{ listing.property.bikeParkingCapacity }}
-            </PropertyListItemFeatureItem>
+            <!--            <PropertyListItemFeatureItem -->
+            <!--               title="Bike parking" -->
+            <!--               :icon="iconLibrary.property.bikeParking" -->
+            <!--            > -->
+            <!--               {{ listing.property.bikeParkingCapacity }} -->
+            <!--            </PropertyListItemFeatureItem> -->
 
-            <PropertyListItemFeatureItem
-               title="Area"
-               :icon="iconLibrary.property.floorArea"
-            >
-               {{ formatNumber(listing.property.floorArea) }} sq.ft
-            </PropertyListItemFeatureItem>
+            <!--            <PropertyListItemFeatureItem -->
+            <!--               title="Area" -->
+            <!--               :icon="iconLibrary.property.floorArea" -->
+            <!--            > -->
+            <!--               {{ formatNumber(listing.property.floorArea) }} sq.ft -->
+            <!--            </PropertyListItemFeatureItem> -->
          </div>
          <!-- endregion: quick features -->
 
          <!-- region: rent details -->
          <section>
             <p class="text-2xl font-bold text-primaryColor">
-               {{ formatLKR(listing.rentExpectation) }}
-               <span class="text-sm font-normal text-primaryColor/50">/ month</span>
+               {{ formatLKR(listing.hourlyRate) }}
+               <span class="text-sm font-normal text-primaryColor/50">/ Hour</span>
             </p>
          </section>
          <!-- endregion: rent details -->

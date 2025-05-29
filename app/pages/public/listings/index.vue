@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useAppTitle } from '~/composables/use-app-title';
-import PublicPropertyListings from '~/page-components/public/public-course-listings.vue';
 
 /* ---------------------------------------------------------------------------------------------- */
 /*
@@ -15,7 +14,7 @@ useAppTitle('Recent Listings');
 
 <template>
    <PublicLayout>
-      <PublicPropertyListings full />
+      <PublicCourseListings full />
    </PublicLayout>
 </template>
 
