@@ -17,6 +17,12 @@ catch (error) {
    console.error(error);
 }
 
+const items = computed(() => {
+   return courseTypes.value.map(type => ({
+      label: type.courseType,
+      id: type.id,
+   }));
+});
 watch(modelValue, () => {
    emit(
       'select',
@@ -31,11 +37,10 @@ watch(modelValue, () => {
 <template>
    <USelectMenu
       v-model="modelValue"
-      :course-types="courseTypes"
+      :items="items"
       value-key="id"
       placeholder="Select course type"
    />
-   {{ courseTypes }}
 </template>
 
 <style scoped lang="postcss"></style>

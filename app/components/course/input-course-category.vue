@@ -18,13 +18,19 @@ const modelValue = defineModel<number | undefined>({ default: undefined });
 const courseCategories = ref([] as CourseCategory[]);
 
 // Move API call inside onMounted hook
-onMounted(async () => {
-   try {
-      courseCategories.value = await useNuxtApp().$api<CourseCategory[]>('/course/course-categories');
-   }
-   catch (error) {
-      console.error(error);
-   }
+
+try {
+   courseCategories.value = await useNuxtApp().$api<CourseCategory[]>('/course/course-categories');
+}
+catch (error) {
+   console.error(error);
+}
+
+const items = computed(() => {
+   return courseCategories.value.map(courseCategory => ({
+      label: courseCategory.courseCategory,
+      id: courseCategory.id,
+   }));
 });
 
 watch(modelValue, () => {
@@ -39,11 +45,8 @@ watch(modelValue, () => {
 <template>
    <USelectMenu
       v-model="modelValue"
-      searchable
-      searchable-placeholder="Search cities..."
-      :options="courseCategories"
-      option-attribute="courseCategory"
-      value-attribute="id"
+      :items="items"
+      value-key="id"
       placeholder="Select Course Category"
    />
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Course, CourseCategory } from '~~/__backend/courses/types';
+import type { Course, CourseCategory, CourseType } from '~~/__backend/courses/types';
 import { watchDeep } from '@vueuse/shared';
 import { z } from 'zod';
 import { useApiGetAllCourseTypes } from '~~/__backend/courses/api';
@@ -7,7 +7,7 @@ import { useApiGetAllCourseTypes } from '~~/__backend/courses/api';
 /* ---------------------------------------------------------------------------------------------- */
 
 const { user } = useUserSession();
-const showAddPropertyModal = ref(false);
+const showAddCourseModal = ref(false);
 const apiCourseTypes = reactive(useApiGetAllCourseTypes());
 apiCourseTypes.execute();
 
@@ -21,6 +21,7 @@ const toast = useToast();
 
 /* ---------------------------------------------------------------------------------------------- */
 
+const courseType = ref({} as CourseType);
 const courseCategory = ref({} as CourseCategory);
 
 const formSchema = z.object({
@@ -51,7 +52,7 @@ async function handleCreateCourse() {
       toast.add({
          title: 'Success',
          description: 'Course created successfully',
-         color: 'green',
+         color: 'success',
       });
 
       return navigateTo(`/app/teacher/courses/${response.id}/edit`);
@@ -70,6 +71,10 @@ async function handleCreateCourse() {
 
 /* ---------------------------------------------------------------------------------------------- */
 
+watchDeep(courseType, (courseType) => {
+   formState.courseTypeId = courseType.id;
+});
+
 watchDeep(courseCategory, (courseCategory) => {
    formState.courseCategoryId = courseCategory.id;
 });
@@ -78,31 +83,108 @@ watchDeep(courseCategory, (courseCategory) => {
 </script>
 
 <template>
-   <ButtonCreate
-      @click="showAddPropertyModal = true"
-   >
-      Add new property
-   </ButtonCreate>
    <!-- region: Modal -->
    <UModal
-      v-model="showAddPropertyModal"
+      v-model="showAddCourseModal"
       prevent-close
+      title="Add New Class"
+      :ui="{ width: 'sm:max-w-md md:max-w-lg' }"
    >
-      <header class="flex justify-between p-5">
-         <Heading2>Add new property</Heading2>
+      <UButton
+         icon="i-heroicons-plus"
+         label="Add New Class"
+         color="primary"
+         size="md"
+         class="mb-4"
+         @click="showAddCourseModal = true"
+      />
 
-         <UButton
-            icon="i-fluent:dismiss-24-regular"
-            color="neutral"
-            variant="soft"
-            @click="showAddPropertyModal = false"
-         />
-      </header>
+      <template #body>
+         <div class="mb-4 px-1">
+            <p class="text-gray-600 text-sm">
+               Fill in the details below to create a new class. All fields are required.
+            </p>
+         </div>
+         <UForm :schema="formSchema" :state="formState" class="space-y-6">
+            <div class="grid gap-6">
+               <UFormField name="courseTypeId" class="form-field">
+                  <template #label>
+                     <div class="flex items-center gap-1 mb-1">
+                        <UIcon name="i-heroicons-academic-cap" class="text-primary-500" />
+                        <span>Course Type</span>
+                     </div>
+                  </template>
+                  <InputCourseType v-model="formState.courseTypeId" @select="courseType = $event" />
+               </UFormField>
+
+               <UFormField name="courseCategoryId" class="form-field">
+                  <template #label>
+                     <div class="flex items-center gap-1 mb-1">
+                        <UIcon name="i-heroicons-tag" class="text-primary-500" />
+                        <span>Course Category</span>
+                     </div>
+                  </template>
+                  <InputCourseCategory v-model="formState.courseCategoryId" @select="courseCategory = $event" />
+               </UFormField>
+
+               <UFormField name="description" class="form-field">
+                  <template #label>
+                     <div class="flex items-center gap-1 mb-1">
+                        <UIcon name="i-heroicons-document-text" class="text-primary-500" />
+                        <span>Description</span>
+                     </div>
+                  </template>
+                  <UTextarea
+                     v-model="formState.description"
+                     placeholder="Enter course description"
+                     rows="4"
+                     class="w-full"
+                  />
+               </UFormField>
+            </div>
+
+            <div v-if="submitErrors" class="text-red-500 text-sm mt-2 p-2 bg-red-50 rounded-md">
+               {{ submitErrors }}
+            </div>
+         </UForm>
+      </template>
+
+      <template #footer>
+         <div class="flex justify-end gap-3 pt-2">
+            <UButton
+               color="gray"
+               variant="ghost"
+               size="md"
+               icon="i-heroicons-x-mark"
+               @click="showAddCourseModal = false"
+            >
+               Cancel
+            </UButton>
+            <UButton
+               color="primary"
+               variant="solid"
+               size="md"
+               icon="i-heroicons-check"
+               :loading="isSubmitting"
+               @click="handleCreateCourse"
+            >
+               Create Course
+            </UButton>
+         </div>
+      </template>
    </UModal>
 </template>
 
-      <style scoped lang="postcss">
-         .form-section {
-         @apply bg-white rounded-lg shadow-md p-6;
-         }
-      </style>
+<style scoped lang="postcss">
+.form-section {
+   @apply bg-white rounded-lg shadow-md p-6;
+}
+
+.form-field {
+   @apply transition-all duration-200;
+}
+
+.form-field:hover {
+   @apply transform scale-[1.01];
+}
+</style>
