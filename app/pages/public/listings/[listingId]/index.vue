@@ -3,6 +3,7 @@ import { usePublicApiGetCourseListing } from '~~/__backend/public/api';
 
 import ListingCourseOverview from '~/page-components/public/listing/listing-course-overview.vue';
 import { formatLKR } from '~/utils/formatting-utils';
+import { iconLibrary } from '~/utils/icons-utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 

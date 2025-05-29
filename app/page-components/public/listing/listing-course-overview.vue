@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { PublicCourseInfo } from '~~/__backend/public/types';
+import CourseOverviewItem from '~/components/course/course-overview-item.vue';
+import { iconLibrary } from '~/utils/icons-utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -15,7 +17,7 @@ const { course } = defineProps<{
             Class Overview
          </header>
 
-         <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+         <div class="grid grid-cols-2 gap-3 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-5">
             <CourseOverviewItem
                title="Class type"
                :icon="iconLibrary.property.propertyType"
@@ -32,7 +34,7 @@ const { course } = defineProps<{
 
          <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             <div
-               v-for="feature in course.courseFeature"
+               v-for="feature in course.courseFeatures"
                :key="feature.id"
                class="rounded-md border border-first-50 bg-first-50/50 px-4 py-2"
             >
@@ -42,7 +44,7 @@ const { course } = defineProps<{
             </div>
          </div>
 
-         <div v-if="course.courseFeature.length === 0">
+         <div v-if="course.courseFeatures.length === 0">
             No features found.
          </div>
       </section>

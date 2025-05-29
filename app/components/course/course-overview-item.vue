@@ -11,7 +11,7 @@ const { title = 'Title' } = defineProps<{
          <aside class="text-second-400">
             <UIcon
                v-if="icon"
-               class="size-6"
+               class="6"
                :name="icon"
             />
          </aside>

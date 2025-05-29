@@ -11,7 +11,7 @@ export const PublicCourseInfoSchema = z.object({
    courseTypeId: z.number(),
    description: z.string(),
    courseType: CourseTypeSchema,
-   courseFeature: z.array(CourseFeatureSchema).default([]),
+   courseFeatures: z.array(CourseFeatureSchema).default([]),
    courseImages: z.array(CourseImageSchema).default([]),
    primaryImage: CourseImageSchema.nullable(),
    user: z.object({
