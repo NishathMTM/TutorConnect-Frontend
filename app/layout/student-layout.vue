@@ -10,33 +10,24 @@ const items = ref<NavigationMenuItem[]>([
    {
       label: 'Dashboard',
       icon: 'i-heroicons-chart-bar',
-      to: '/app/teacher',
+      to: '/app/student',
    },
    {
       label: 'classes',
       icon: 'i-heroicons-book-open',
-      to: '/app/teacher/courses',
+      to: '/app/student/classes',
    },
    {
-      label: 'Course Bookings',
+      label: 'Class Bookings',
       icon: 'i-heroicons-map-pin',
-      to: '/app/teacher/course-bookings',
+      to: '/app/student/bookings',
    },
    {
-      label: 'Students',
+      label: 'Payment',
       icon: 'i-heroicons-user-group',
-      to: '/app/teacher/students',
+      to: '/app/student/class-payment',
    },
 ]);
-/* ---------------------------------------------------------------------------------------------- */
-
-/**
- * Layout for teacher pages
- * Contains the sidebar navigation with links to:
- * - Dashboard
- * - Courses
- * - Students
- */
 </script>
 
 <template>
@@ -53,8 +44,8 @@ const items = ref<NavigationMenuItem[]>([
    </AppLayout>
 </template>
 
-<style lang="postcss">
+<style scoped lang="postcss">
 .sidebar-nav ul div div {
-   @apply border-first-200;
+  @apply border-first-200;
 }
 </style>

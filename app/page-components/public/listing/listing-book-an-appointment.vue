@@ -1,24 +1,23 @@
 <script setup lang="ts">
-import type { Visit } from '~~/__backend/property-visits/types';
-import type { PublicPropertyListing } from '~~/__backend/public/types';
-import { useApiGetListingVisitForUser } from '~~/__backend/property-visits/api';
+import type { Booking } from '~~/__backend/course-bookings/types';
+import type { PublicCourseListing } from '~~/__backend/public/types';
+import { useApiGetListingBookingForUser } from '~~/__backend/course-bookings/api';
 import VisitStatus from '~/components/visit/visit-status.vue';
-import { usePropertyVisitMessaging } from '~/composables/property/visits/use-property-visit-messaging';
 import ListingCreateNewAppointment from '~/page-components/public/listing/listing-create-new-appointment.vue';
 
 /* ---------------------------------------------------------------------------------------------- */
 
 const { listing } = defineProps<{
-   listing: PublicPropertyListing;
+   listing: PublicCourseListing;
 }>();
 
 /* ---------------------------------------------------------------------------------------------- */
 
 const { user, loggedIn } = useUserSession();
 
-const isTenantUser = computed(() => {
+const isStudentUser = computed(() => {
    if (user.value) {
-      return user.value.role === 'TENANT';
+      return user.value.role === 'STUDENT';
    }
    return false;
 });
@@ -28,45 +27,44 @@ const isTenantUser = computed(() => {
  * Fetch existing visit details
  */
 
-const apiVisit = reactive(useApiGetListingVisitForUser(ref(listing.id)));
+const apiBooking = reactive(useApiGetListingBookingForUser(ref(listing.id)));
 
 if (loggedIn.value) {
-   await apiVisit.execute();
+   await apiBooking.execute();
 }
 
-const visitRef = ref<Visit | null>(null);
+const bookingRef = ref<Booking | null>(null);
 
-watch(() => apiVisit.visit, visit => visitRef.value = visit, { immediate: true });
+watch(() => apiBooking.booking, booking => bookingRef.value = booking, { immediate: true });
 
 /* ---------------------------------------------------------------------------------------------- */
 </script>
 
 <template>
-   <div v-if="!apiVisit.visit">
+   <div v-if="!apiBooking.booking">
       <header class="section-header">
-         Book an appointment for property visit
+         Make a request for Class
       </header>
       <p class="mb-3 text-second-400">
-         If you are interested in this property, you can book an appointment with the owner to visit
-         and inspect the property.
+         If you are interested in this class, you can request a class time
       </p>
 
       <div v-if="!loggedIn">
          <UButton :to="`/login?redirectTo=/public/listings/${listing.id}`">
-            Login as tenant to continue
+            Login as student to continue
          </UButton>
       </div>
 
       <div v-else>
-         <template v-if="isTenantUser">
+         <template v-if="isStudentUser">
             <ListingCreateNewAppointment
                :listing
-               @create="apiVisit.execute()"
+               @create="apiBooking.execute()"
             />
          </template>
          <template v-else>
             <p class="mb-3 text-red-500">
-               You need to be logged in with a tenant account.
+               You need to be logged in with a student account.
             </p>
             <UButton to="/login">
                Sign in again
@@ -83,20 +81,20 @@ watch(() => apiVisit.visit, visit => visitRef.value = visit, { immediate: true }
 
          <div class="mb-5 flex gap-3">
             <div>
-               <VisitStatus :status="apiVisit.visit.status" />
+               <VisitStatus :status="apiBooking.booking.status" />
             </div>
 
             <div class="flex items-center gap-1">
                <UIcon name="i-fluent:clock-24-regular" />
                <p class="text-sm">
-                  {{ formatDateTimeString(apiVisit.visit.visitDateTime) }}
+                  {{ formatDateTimeString(apiBooking.booking.bookingDateTime) }}
                </p>
             </div>
          </div>
 
          <footer>
-            <UButton :to="`/app/tenant/visits/${apiVisit.visit.id}`">
-               Check visit details
+            <UButton :to="`/app/student/bookings/${apiBooking.booking.id}`">
+               Check booking details
             </UButton>
          </footer>
       </div>
@@ -113,16 +111,16 @@ watch(() => apiVisit.visit, visit => visitRef.value = visit, { immediate: true }
          <div class="flex gap-3 items-center">
             <UButton
                variant="soft"
-               :to="`/app/tenant/visits/${apiVisit.visit.id}`"
+               :to="`/app/student/booking/${apiBooking.booking.id}`"
                :icon="iconLibrary.visit.visit"
             >
                Check visit details
             </UButton>
 
             <ListingCreateNewAppointment
-               v-if="isTenantUser"
+               v-if="isStudentUser"
                :listing
-               @create="apiVisit.execute()"
+               @create="apiBooking.execute()"
             />
          </div>
       </div>

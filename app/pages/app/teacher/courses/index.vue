@@ -31,8 +31,8 @@ apiFetchCourses.execute();
 
 /* ---------------------------------------------------------------------------------------------- */
 /*
- * Path: /app/teacher/courses
- * Description: Teacher's courses
+ * Path: /app/teacher/classes
+ * Description: Teacher's classes
  */
 
 useHead({
@@ -72,7 +72,7 @@ useHead({
                </div>
             </div>
          </section>
-         <!-- endregion: List of courses -->
+         <!-- endregion: List of classes -->
       </FullContainer>
    </TeacherLayout>
 </template>

@@ -22,7 +22,7 @@ onMounted(() => {
 
 /* ---------------------------------------------------------------------------------------------- */
 /*
- * Path: /app/teacher/courses/[id]
+ * Path: /app/teacher/classes/[id]
  * Description: View single course details
  */
 

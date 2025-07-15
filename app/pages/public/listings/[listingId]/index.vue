@@ -112,10 +112,10 @@ const images = computed(() => {
 
                <!-- Right Column (1/3 width) -->
                <div class="lg:col-span-1 space-y-6">
-                  <!-- Booking Card -->
-                  <!--                  <div class="bg-white rounded-xl p-6 shadow-sm border border-first-100"> -->
-                  <!--                     <ListingBookAnAppointment :listing="listing" /> -->
-                  <!--                  </div> -->
+                  <!--                   Booking Card -->
+                  <div class="bg-white rounded-xl p-6 shadow-sm border border-first-100">
+                     <ListingBookAnAppointment :listing="listing" />
+                  </div>
                </div>
             </div>
          </div>

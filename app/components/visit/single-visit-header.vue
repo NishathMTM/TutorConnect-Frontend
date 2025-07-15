@@ -57,7 +57,7 @@ const { isExpired } = usePropertyVisitMessaging(ref(visit));
          <div>
             <div class="flex items-center gap-1">
                <UIcon :name="iconLibrary.date" />
-               <p>{{ formatDateTimeString(visit.visitDateTime) }}</p>
+               <p>{{ formatDateTimeString(visit.bookingDateTime) }}</p>
             </div>
          </div>
       </div>
@@ -85,7 +85,7 @@ const { isExpired } = usePropertyVisitMessaging(ref(visit));
          <header class="mb-3 border-b border-b-first-100 font-bold text-second-400">
             Remarks
          </header>
-         <p>{{ visit.visitRemarks }}</p>
+         <p>{{ visit.bookingRemarks }}</p>
       </div>
    </div>
 </template>

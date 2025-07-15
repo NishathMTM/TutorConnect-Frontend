@@ -129,13 +129,13 @@ const columns = [
                <div>
                   <div class="flex items-center gap-1">
                      <UIcon :name="iconLibrary.date" />
-                     <p>{{ formatDateTimeString(row.visitDateTime) }}</p>
+                     <p>{{ formatDateTimeString(row.bookingDateTime) }}</p>
                   </div>
                </div>
             </template>
 
             <template #remarks-data="{ row }">
-               <div>{{ row.visitRemarks }}</div>
+               <div>{{ row.bookingRemarks }}</div>
             </template>
 
             <template #status-data="{ row }">

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { PublicPropertyListing } from '~~/__backend/public/types';
+import type { PublicCourseListing } from '~~/__backend/public/types';
 import { z } from 'zod';
 
 /* ---------------------------------------------------------------------------------------------- */
 
 const { listing } = defineProps<{
-   listing: PublicPropertyListing;
+   listing: PublicCourseListing;
 }>();
 
 const emit = defineEmits(['create']);
@@ -14,24 +14,24 @@ const emit = defineEmits(['create']);
 
 const isOpen = ref(false);
 
-const visitDate = ref(todayAsString());
-const visitTime = ref('10:30:00');
+const bookingDate = ref(todayAsString());
+const bookingTime = ref('10:30:00');
 
-const visitDateTime = computed(() => {
-   return `${visitDate.value} ${visitTime.value}`;
+const bookingDateTime = computed(() => {
+   return `${bookingDate.value} ${bookingTime.value}`;
 });
 
 /* ---------------------------------------------------------------------------------------------- */
 
 const formSchema = z.object({
    listingId: z.number(),
-   visitRemarks: z.string().min(1),
+   bookingRemarks: z.string().min(1),
 });
 
 const formState = reactive({
    listingId: listing.id,
-   visitDateTime: visitDateTime.value,
-   visitRemarks: 'I would like to visit this property',
+   bookingDateTime: bookingDateTime.value,
+   bookingRemarks: 'I would like to do this class',
 });
 
 const isSubmitting = ref(false);
@@ -42,10 +42,10 @@ const isSubmitting = ref(false);
 async function handleCreate() {
    isSubmitting.value = true;
 
-   formState.visitDateTime = visitDateTime.value;
+   formState.bookingDateTime = bookingDateTime.value;
 
    try {
-      await useNuxtApp().$api('/property-visit', {
+      await useNuxtApp().$api('/course-booking', {
          method: 'POST',
          body: formState,
       });
@@ -65,22 +65,24 @@ async function handleCreate() {
 </script>
 
 <template>
-   <UButton
-      :icon="iconLibrary.actions.create"
-      @click="isOpen = true"
-   >
-      Set an appointment
-   </UButton>
-
    <UModal
       v-model="isOpen"
       prevent-close
+      title="Create an appointment"
    >
-      <UCard>
-         <template #header>
-            <Heading2>Create an appointment</Heading2>
-         </template>
+      <UButton
+         :icon="iconLibrary.actions.create"
+         label="Add New Class"
+         color="primary"
+         size="md"
+         class="mb-4"
+         @click="isOpen = true"
+      />
 
+      <template #header>
+         <Heading2>Request for the class</Heading2>
+      </template>
+      <template #body>
          <UForm
             class="flex flex-col gap-5"
             :state="formState"
@@ -88,31 +90,31 @@ async function handleCreate() {
             @submit="handleCreate()"
          >
             <div class="grid grid-cols-2 gap-3">
-               <UFormGroup
+               <UFormField
                   label="Date"
                   name="visitDate"
                >
                   <InputDatepicker
-                     v-model="visitDate"
+                     v-model="bookingDate"
                      :deny-past="false"
                      :allow-future="true"
                   />
-               </UFormGroup>
+               </UFormField>
 
-               <UFormGroup label="Time">
+               <UFormField label="Time">
                   <InputTime
-                     v-model="visitTime"
+                     v-model="bookingTime"
                   />
-               </UFormGroup>
+               </UFormField>
             </div>
 
             <div class="grid grid-cols-1">
-               <UFormGroup
+               <UFormField
                   label="Remarks"
                   name="visitRemarks"
                >
-                  <UTextarea v-model="formState.visitRemarks" />
-               </UFormGroup>
+                  <UTextarea v-model="formState.bookingRemarks" />
+               </UFormField>
             </div>
 
             <footer class="flex w-full justify-end gap-3">
@@ -127,7 +129,7 @@ async function handleCreate() {
                </ButtonCancel>
             </footer>
          </UForm>
-      </UCard>
+      </template>
    </UModal>
 </template>
 

@@ -67,7 +67,7 @@ watchEffect(() => {
          <USelectMenu
             v-model="hour"
             class="min-w-[4.5rem]"
-            :options="hourOptions"
+            :items="hourOptions"
             :portal="false"
          />
       </div>
@@ -75,14 +75,14 @@ watchEffect(() => {
       <div>
          <USelectMenu
             v-model="minute"
-            :options="minutesOptions"
+            :items="minutesOptions"
          />
       </div>
 
       <div>
          <USelectMenu
             v-model="amPm"
-            :options="amPmOptions"
+            :items="amPmOptions"
          />
       </div>
    </div>

@@ -17,7 +17,7 @@ export interface ApiGetAllCoursesByTeacherQuery {
 }
 
 /**
- * Composable for API - Get all courses for a given teacher
+ * Composable for API - Get all classes for a given teacher
  */
 export function useApiGetAllCoursesByTeacher(query: ApiGetAllCoursesByTeacherQuery) {
    const { data, error, execute, status } = useApiFetch('/teacher/courses', {
