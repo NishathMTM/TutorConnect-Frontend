@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { BadgeSize } from '#ui/types';
-
 const { status, size = 'sm' } = defineProps<{
    status: string;
-   size?: BadgeSize;
+   size?: 'xs' | 'sm' | 'md' | 'lg';
 }>();
 
 const statusStrings = new Map<string, string>([

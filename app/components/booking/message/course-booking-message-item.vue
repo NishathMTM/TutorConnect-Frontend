@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { PropertyVisitMessage } from '~~/__backend/course-visit-messages/types';
+import type { CourseBookingMessage } from '~~/__backend/course-booking-message/types';
 
 /* ---------------------------------------------------------------------------------------------- */
 
 const { message } = defineProps<{
-   message: PropertyVisitMessage;
+   message: CourseBookingMessage;
 }>();
 
 const avatarUi = ref({
@@ -12,7 +12,7 @@ const avatarUi = ref({
    background: 'bg-first-400',
 });
 
-if (message.sender === 'TENANT') {
+if (message.sender === 'STUDENT') {
    avatarUi.value.background = 'bg-second-400';
 }
 
@@ -48,7 +48,7 @@ const statusColors = new Map<string, string>([
          <!-- Message Text -->
          <div
             class="rounded-lg border px-2 py-1 shadow-sm"
-            :class="[message.sender === 'LANDLORD' ? 'border-first-100 bg-first-50' : 'bg-second-50']"
+            :class="[message.sender === 'TEACHER' ? 'border-first-100 bg-first-50' : 'bg-second-50']"
          >
             <p class="text-sm text-gray-800">
                {{ message.message }}

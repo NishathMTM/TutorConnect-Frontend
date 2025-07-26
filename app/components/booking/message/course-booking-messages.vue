@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { Visit } from '~~/__backend/course-visits/types';
-import { useApiGetVisitMessages } from '~~/__backend/course-visit-messages/api';
-import { PropertyVisitStatus } from '~~/__backend/course-visits/types';
-import PropertyVisitMessageItem from '~/components/visit/message/property-visit-message-item.vue';
+import type { Booking } from '~~/__backend/course-bookings/types';
+import { watchOnce } from '@vueuse/shared';
+import { useApiGetBookingMessages } from '~~/__backend/course-booking-message/api';
+import { CourseBookingStatus } from '~~/__backend/course-bookings/types';
+import CourseBookingMessageItem from '~/components/booking/message/course-booking-message-item.vue';
+import { iconLibrary } from '~/utils/icons-utils';
 
-/* ---------------------------------------------------------------------------------------------- */
-
-const { visit, senderType } = defineProps<{
-   visit: Visit;
-   senderType: 'LANDLORD' | 'TENANT';
+const { booking, senderType } = defineProps<{
+   booking: Booking;
+   senderType: 'TEACHER' | 'STUDENT';
 }>();
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -16,7 +16,7 @@ const { visit, senderType } = defineProps<{
  * Messages
  */
 
-const apiMessages = reactive(useApiGetVisitMessages(ref(visit.id)));
+const apiMessages = reactive(useApiGetBookingMessages(ref(booking.id)));
 
 apiMessages.execute();
 
@@ -38,7 +38,7 @@ const { user } = useUserSession();
 const messageInput = ref('');
 
 const messageBody = reactive({
-   visitId: visit.id,
+   bookingId: booking.id,
    senderId: user.value?.id,
    senderType,
    message: '',
@@ -47,21 +47,23 @@ const messageBody = reactive({
 const isPosting = ref(false);
 
 async function handlePostMessage() {
+   if (!messageInput.value.trim())
+      return;
+
    isPosting.value = true;
 
    try {
       messageBody.message = messageInput.value;
 
-      await useNuxtApp().$api('/course-visit-message', {
+      await useNuxtApp().$api('/course-booking-message', {
          method: 'POST',
          body: messageBody,
       });
 
       messageInput.value = '';
 
-      /*
-       * fetch new messages again
-       */
+      // Fetch new messages again
+      await fetchMessages();
    }
    catch (error) {
       console.error(error);
@@ -75,8 +77,8 @@ async function handlePostMessage() {
  * Subscribe to real-time messages
  */
 
-const { createSubscription, messages: chatMessages } = useVisitMessagesChatTransmit(
-   ref(visit.id),
+const { createSubscription, messages: chatMessages } = useBookingMessagesChatTransmit(
+   ref(booking.id),
 );
 
 await createSubscription();
@@ -97,7 +99,7 @@ watchOnce(() => apiMessages.messages, (messages) => {
    >
       <!-- region: messages -->
       <div class="flex flex-col gap-5">
-         <PropertyVisitMessageItem
+         <CourseBookingMessageItem
             v-for="message in chatMessages"
             :key="message.id"
             :message="message"
@@ -113,12 +115,12 @@ watchOnce(() => apiMessages.messages, (messages) => {
 
       <!-- region: post new message -->
 
-      <template v-if="!visit.archived">
+      <template v-if="!booking.archived">
          <div
             v-if="
-               visit.status === PropertyVisitStatus.APPROVED
-                  || visit.status === PropertyVisitStatus.PENDING
-                  || visit.status === PropertyVisitStatus.REVISIT_REQUESTED
+               booking.status === CourseBookingStatus.APPROVED
+                  || booking.status === CourseBookingStatus.PENDING
+                  || booking.status === CourseBookingStatus.RESCHEDULE
             "
             class="mt-5 flex w-full gap-1"
          >

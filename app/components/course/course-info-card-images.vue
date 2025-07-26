@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { PropertyImage } from '~~/__backend/properties/types';
+import type { CourseImage } from '~~/__backend/courses/types';
 
 const { images } = defineProps<{
-   images: PropertyImage[];
+   images: CourseImage[];
 }>();
 
 const selectedImages = computed(() => {

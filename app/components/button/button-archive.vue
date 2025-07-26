@@ -2,7 +2,7 @@
 
 <template>
    <UButton
-      color="gray"
+      color="warning"
       :icon="iconLibrary.actions.archive"
    >
       <slot>Archive</slot>

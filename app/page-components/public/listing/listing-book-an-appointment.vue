@@ -2,7 +2,7 @@
 import type { Booking } from '~~/__backend/course-bookings/types';
 import type { PublicCourseListing } from '~~/__backend/public/types';
 import { useApiGetListingBookingForUser } from '~~/__backend/course-bookings/api';
-import VisitStatus from '~/components/visit/visit-status.vue';
+import BookingStatus from '~/components/booking/booking-status.vue';
 import ListingCreateNewAppointment from '~/page-components/public/listing/listing-create-new-appointment.vue';
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -24,7 +24,7 @@ const isStudentUser = computed(() => {
 
 /* ---------------------------------------------------------------------------------------------- */
 /*
- * Fetch existing visit details
+ * Fetch existing booking details
  */
 
 const apiBooking = reactive(useApiGetListingBookingForUser(ref(listing.id)));
@@ -76,12 +76,12 @@ watch(() => apiBooking.booking, booking => bookingRef.value = booking, { immedia
       <!-- When an appointment is already set -->
       <div v-if="!isExpired">
          <h3 class="text-xl font-bold">
-            Appointment already booked!
+            You already made a request for this class!
          </h3>
 
          <div class="mb-5 flex gap-3">
             <div>
-               <VisitStatus :status="apiBooking.booking.status" />
+               <BookingStatus :status="apiBooking.booking.status" />
             </div>
 
             <div class="flex items-center gap-1">
@@ -94,7 +94,7 @@ watch(() => apiBooking.booking, booking => bookingRef.value = booking, { immedia
 
          <footer>
             <UButton :to="`/app/student/bookings/${apiBooking.booking.id}`">
-               Check booking details
+               Check Request Status
             </UButton>
          </footer>
       </div>
@@ -103,8 +103,8 @@ watch(() => apiBooking.booking, booking => bookingRef.value = booking, { immedia
       <div v-else>
          <div class="mb-5">
             <p class="text-red-500">
-               You already have an expired appointment. You can either check existing visit for any messages
-               from the landlord or you can create a new visit.
+               You already have an expired appointment. You can either check existing booking for any messages
+               from the landlord or you can create a new booking.
             </p>
          </div>
 
@@ -112,9 +112,9 @@ watch(() => apiBooking.booking, booking => bookingRef.value = booking, { immedia
             <UButton
                variant="soft"
                :to="`/app/student/booking/${apiBooking.booking.id}`"
-               :icon="iconLibrary.visit.visit"
+               :icon="iconLibrary.map"
             >
-               Check visit details
+               Check booking details
             </UButton>
 
             <ListingCreateNewAppointment

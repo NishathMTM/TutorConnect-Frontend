@@ -140,7 +140,7 @@ const columns = [
 
             <template #status-data="{ row }">
                <div class="flex justify-center">
-                  <VisitStatus :status="row.status" />
+                  <BookingStatus :status="row.status" />
                </div>
             </template>
 
@@ -164,7 +164,7 @@ const columns = [
    </section>
    <LoadingPlaceholder v-else-if="apiVisitsPending.status === 'pending' || apiVisitsRevisit.status === 'pending'" />
    <div v-else class="py-4 text-center text-gray-500">
-      Failed to load visit requests
+      Failed to load booking requests
    </div>
 </template>
 

@@ -11,7 +11,7 @@ import { useApiFetchErrors } from '~/composables/use-api-fetch-errors';
 /* ---------------------------------------------------------------------------------------------- */
 
 /**
- * Get the bookings detail for the listing by user
+ * Get the booking detail for the listing by user
  */
 export function useApiGetListingBookingForUser(listingId: Ref<number>) {
    const { data, error, execute, status } = useApiFetch(
@@ -36,7 +36,7 @@ export function useApiGetListingBookingForUser(listingId: Ref<number>) {
 /* ---------------------------------------------------------------------------------------------- */
 
 /**
- * Get all bookings details for the user
+ * Get all booking details for the user
  */
 export function useApiGetBookingsForUser(query: ApiGetAllBookingsForTeacherQuery) {
    const { data, error, execute, status } = useApiFetch<PaginatedResponse>(`/course-booking/user/`, {
@@ -71,7 +71,7 @@ export interface ApiGetAllBookingsForTeacherQuery {
 }
 
 /**
- * Get all bookings for the teacher
+ * Get all booking for the teacher
  */
 export function useApiGetAllBookingsForTeacher(
    query: ApiGetAllBookingsForTeacherQuery,
@@ -107,9 +107,9 @@ export function useApiGetAllBookingsForTeacher(
 /**
  * Get single booking details
  */
-export function useApiGetSingleBookingInfo(visitId: Ref<number>) {
+export function useApiGetSingleBookingInfo(bookingId: Ref<number>) {
    const { data, error, execute, status } = useApiFetch<PaginatedResponse>(
-      () => `/course-booking/${visitId.value}`,
+      () => `/course-booking/${bookingId.value}`,
    );
 
    const booking = computed<BookingFull | null>(() => {

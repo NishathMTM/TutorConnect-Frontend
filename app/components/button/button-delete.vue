@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-   <UButton color="red" :icon="iconLibrary.actions.trash">
+   <UButton color="error" :icon="iconLibrary.actions.trash">
       <slot>Delete</slot>
    </UButton>
 </template>

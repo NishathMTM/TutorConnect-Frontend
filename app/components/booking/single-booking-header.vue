@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import type { VisitFull } from '~~/__backend/course-visits/types';
-import { PropertyVisitStatus } from '~~/__backend/course-visits/types';
-import { usePropertyVisitMessaging } from '~/composables/property/visits/use-property-visit-messaging';
+import type { BookingFull } from '~~/__backend/course-bookings/types';
+import { CourseBookingStatus } from '~~/__backend/course-bookings/types';
 import { formatDateTimeString } from '~/utils/formatting-utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const { visit } = defineProps<{
-   visit: VisitFull;
+const { booking } = defineProps<{
+   booking: BookingFull;
 }>();
 
 /* ---------------------------------------------------------------------------------------------- */
 
-const { isExpired } = usePropertyVisitMessaging(ref(visit));
+const isExpired = computed(() => booking.status === CourseBookingStatus.EXPIRED);
 
 /* ---------------------------------------------------------------------------------------------- */
 </script>
@@ -27,7 +26,7 @@ const { isExpired } = usePropertyVisitMessaging(ref(visit));
          <div class="flex gap-2">
             <div>
                <div class="font-bold">
-                  {{ visit.tenant.profile.fullName }}
+                  {{ booking.student.profile.fullName }}
                </div>
                <div class="text-sm">
                   <div class="flex items-center gap-2 text-second-400">
@@ -35,14 +34,14 @@ const { isExpired } = usePropertyVisitMessaging(ref(visit));
                         class="size-5"
                         :name="iconLibrary.map"
                      />
-                     {{ visit.tenant.profile.address }}
+                     {{ booking.student.profile.address }}
                   </div>
                   <div class="flex items-center gap-2 text-second-400">
                      <UIcon
                         class="size-5"
                         :name="iconLibrary.phone"
                      />
-                     {{ visit.tenant.profile.phone1 }}
+                     {{ booking.student.profile.phone1 }}
                   </div>
                </div>
             </div>
@@ -56,8 +55,8 @@ const { isExpired } = usePropertyVisitMessaging(ref(visit));
 
          <div>
             <div class="flex items-center gap-1">
-               <UIcon :name="iconLibrary.date" />
-               <p>{{ formatDateTimeString(visit.bookingDateTime) }}</p>
+               <UIcon :name="iconLibrary.time" />
+               <p>{{ formatDateTimeString(booking.bookingDateTime) }}</p>
             </div>
          </div>
       </div>
@@ -68,15 +67,15 @@ const { isExpired } = usePropertyVisitMessaging(ref(visit));
          </header>
 
          <div class="flex gap-1">
-            <VisitStatus
-               v-if="visit.archived"
+            <BookingStatus
+               v-if="booking.archived"
                size="lg"
-               :status="PropertyVisitStatus.ARCHIVED"
+               :status="CourseBookingStatus.ARCHIVED"
             />
 
-            <VisitStatus
+            <BookingStatus
                size="lg"
-               :status="visit.status"
+               :status="booking.status"
             />
          </div>
       </div>
@@ -85,7 +84,7 @@ const { isExpired } = usePropertyVisitMessaging(ref(visit));
          <header class="mb-3 border-b border-b-first-100 font-bold text-second-400">
             Remarks
          </header>
-         <p>{{ visit.bookingRemarks }}</p>
+         <p>{{ booking.bookingRemarks }}</p>
       </div>
    </div>
 </template>
