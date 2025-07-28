@@ -16,9 +16,8 @@ export function redirectUser() {
          return navigateTo('/app/student');
       case 'TEACHER':
          return navigateTo('/app/teacher');
-      // case 'LANDLORD':
-      //    return navigateTo('/app/landlord');
+
       case 'ADMIN':
-         return navigateTo('/admin/dashboard');
+         return navigateTo('/app/admin/dashboard');
    }
 }

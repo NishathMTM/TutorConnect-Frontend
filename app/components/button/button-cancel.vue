@@ -4,7 +4,7 @@ import { iconLibrary } from '~/utils/icons-utils';
 
 <template>
    <UButton
-      color="gray"
+      color="error"
       :icon="iconLibrary.actions.cancel"
    >
       <slot>Cancel</slot>

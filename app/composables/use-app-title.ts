@@ -4,12 +4,12 @@
 export function useAppTitle(title: string | undefined = undefined) {
    if (title === undefined || title === '') {
       useHead({
-         title: 'Tenantrix',
+         title: 'Tutor Connect',
       });
    }
    else {
       useHead({
-         title: `${title} - Tenantrix`,
+         title: `${title} - Tutor Connect`,
       });
    }
 }

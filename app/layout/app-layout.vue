@@ -63,7 +63,7 @@ function toggleSidebar() {
                <div class="text-center text-sm text-second-400">
                   <div class="w-full border-b border-first-200" />
                   <div class="my-5 flex items-center justify-center">
-                     <UIcon name="i-ic:baseline-copyright" /> {{ new Date().getFullYear() }} Tenantrix. All rights reserved.
+                     <UIcon name="i-ic:baseline-copyright" /> {{ new Date().getFullYear() }} Tutor Connect. All rights reserved.
                   </div>
                </div>
             </footer>

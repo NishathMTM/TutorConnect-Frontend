@@ -55,7 +55,7 @@ const dateTimeUpdatableStatuses: string[] = [
 /* ---------------------------------------------------------------------------------------------- */
 
 // function toCreateTenancy() {
-//    return `/app/teacher/approved-classes/create?bookingId=${bookingId}`;
+//    return `/app/teacher/registered-classes/create?bookingId=${bookingId}`;
 // }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -143,7 +143,7 @@ useAppTitle('Booking details');
                class="mt-5 flex justify-center"
             >
                <UButton :icon="iconLibrary.tenancy.tenancy">
-                  Initiate Class process
+                  Register Class
                </UButton>
             </section>
             <!-- endregion: tenancy process -->

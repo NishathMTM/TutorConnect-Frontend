@@ -40,9 +40,9 @@ async function handleLogin() {
       const { fetch, user } = useUserSession();
       await fetch();
 
-      // if (user.value && user.value.isAdmin) {
-      //    return navigateTo('/admin/dashboard');
-      // }
+      if (user.value && user.value.isAdmin) {
+         return navigateTo('/admin/dashboard');
+      }
 
       if (!user.value?.profileCreated) {
          return navigateTo('/profile/create');

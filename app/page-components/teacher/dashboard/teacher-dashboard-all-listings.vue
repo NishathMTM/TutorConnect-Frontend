@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useApiGetAllCourseListingsByTeacher } from '~~/__backend/course-listings/api';
+import AvailableListingsOverview from '~/page-components/teacher/course-listings/available-listings-overview.vue';
 
 const { user } = useUserSession();
 
@@ -14,9 +15,9 @@ const apiListings = reactive(useApiGetAllCourseListingsByTeacher(ref(user.value!
          </Heading2>
       </header>
 
-      <!--      &lt;!&ndash; region: table of listings &ndash;&gt; -->
-      <!--      <CourseListingsView :listings="apiListings.listings" /> -->
-      <!--      &lt;!&ndash; endregion: table of listings &ndash;&gt; -->
+      <!-- region: table of listings -->
+      <AvailableListingsOverview :listings="apiListings.listings" />
+      <!-- endregion: table of listings -->
    </section>
 </template>
 

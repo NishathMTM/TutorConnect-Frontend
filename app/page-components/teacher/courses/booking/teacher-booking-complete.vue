@@ -66,7 +66,7 @@ async function handleComplete() {
          :icon="iconLibrary.actions.ok"
          @click="isOpen = true"
       >
-         Set the class time
+         Class Completed
       </UButton>
 
       <template #body>

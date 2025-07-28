@@ -20,7 +20,7 @@ const items = ref<NavigationMenuItem[]>([
    {
       label: 'Class Bookings',
       icon: 'i-heroicons-map-pin',
-      to: '/app/student/booking',
+      to: '/app/student/bookings',
    },
    {
       label: 'Payment',
