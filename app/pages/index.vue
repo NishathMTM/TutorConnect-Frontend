@@ -24,7 +24,7 @@ useAppTitle('Welcome');
                   Bridging the Gap Between Teaching and Learning.
                </div>
 
-               <h4 class=" mt-5 mb-5 text-4xl justify-center font-bold text-primaryColor lg:text-5xl">
+               <h4 class=" mt-5 mb-5 text-4xl justify-center font-bold text-primaryColor lg:text-3xl">
                   Experience the Future. Start Managing Your learning and teaching Smarter – Try Now!
                </h4>
 
