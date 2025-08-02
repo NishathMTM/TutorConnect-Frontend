@@ -7,6 +7,6 @@ export const colorsUtils = {
       archived: '#64748b',
       cancelledByUser: '#e11d48',
       cancelledByTeacher: '#e11d48',
-      revisitRequested: '#f59e0b',
+      rescheduleRequested: '#f59e0b',
    },
 };

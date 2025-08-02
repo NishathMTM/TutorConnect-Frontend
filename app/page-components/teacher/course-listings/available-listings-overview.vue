@@ -79,7 +79,7 @@ const stats = computed(() => {
                <div class="flex items-center justify-between text-sm">
                   <span class="text-second-600">Status:</span>
                   <UBadge
-                     :color="listing.status === 'ACTIVE' ? 'green' : 'gray'"
+                     :color="listing.status === 'ACTIVE' ? 'success' : 'secondary'"
                      variant="soft"
                      size="xs"
                   >

@@ -102,7 +102,7 @@ useAppTitle('Booking details');
          <section>
             <header class="mb-5 flex flex-col items-center justify-between lg:flex-row">
                <div class="flex items-center justify-between">
-                  <Heading2>Visit details</Heading2>
+                  <Heading2>Class booking details</Heading2>
                </div>
 
                <div class="flex items-center gap-3">

@@ -98,10 +98,7 @@ const columns: TableColumn<Student>[] = [
                class: 'text-first-600 hover:text-first-800 text-sm font-medium',
                onClick: () => navigateTo(`/app/admin/teachers/${row.original.id}`),
             }, 'View'),
-            h('button', {
-               class: 'text-blue-600 hover:text-blue-800 text-sm font-medium',
-               onClick: () => navigateTo(`/app/admin/teachers/${row.original.id}/edit`),
-            }, 'Edit'),
+
          ]);
       },
    },

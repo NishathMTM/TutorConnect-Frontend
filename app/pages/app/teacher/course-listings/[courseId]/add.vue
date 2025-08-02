@@ -130,7 +130,7 @@ async function submitForm() {
       toast.add({
          title: 'Error',
          description: submitErrors.value,
-         color: 'red',
+         color: 'error',
       });
    }
    finally {
@@ -144,12 +144,12 @@ async function submitForm() {
  * Auto suggestions
  */
 
-const titleSuggestion = ref('');
-
-function applyTitle() {
-   formState.title = titleSuggestion.value;
-   titleSuggestion.value = '';
-}
+// const titleSuggestion = ref('');
+//
+// function applyTitle() {
+//    formState.title = titleSuggestion.value;
+//    titleSuggestion.value = '';
+// }
 
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -165,20 +165,10 @@ useAppTitle('Add new class listing');
             Add new listing
          </Heading2>
 
-         <div class="my-5">
-            <UAlert
-               icon="i-fa6-solid:circle-info"
-               color="neutral"
-               variant="soft"
-               title="Heads up!"
-               description="Fill in the details first, and we will suggest a title for the listing"
-            />
-         </div>
-
          <!-- Show any submission errors -->
          <UAlert
             v-if="submitErrors"
-            color="red"
+            color="error"
             variant="soft"
             class="mb-4"
             :title="submitErrors"
@@ -188,45 +178,23 @@ useAppTitle('Add new class listing');
             <div class="flex flex-col gap-6">
                <!-- Title Section -->
                <div class="space-y-2">
-                  <UFormGroup
+                  <UFormField
                      label="Title"
                      name="title"
-                     help="A descriptive title for your course listing"
                      :error="errors.title"
                   >
                      <UInput
                         v-model="formState.title"
-                        placeholder="Enter a compelling title for your listing"
+                        placeholder="A descriptive title for your course listing"
                         class="w-full"
                      />
-                  </UFormGroup>
-
-                  <div
-                     v-if="titleSuggestion"
-                     class="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-xl"
-                  >
-                     <div class="flex items-center gap-2">
-                        <UIcon name="i-heroicons-light-bulb" class="text-amber-500" />
-                        <p class="text-sm text-amber-700">
-                           {{ titleSuggestion }}
-                        </p>
-                        <UButton
-                           size="xs"
-                           variant="soft"
-                           color="amber"
-                           @click="applyTitle()"
-                        >
-                           Apply
-                        </UButton>
-                     </div>
-                  </div>
+                  </UFormField>
                </div>
 
                <!-- Description Section -->
-               <UFormGroup
+               <UFormField
                   label="Description"
                   name="description"
-                  help="Provide detailed information about your course"
                   :error="errors.description"
                >
                   <UTextarea
@@ -236,11 +204,11 @@ useAppTitle('Add new class listing');
                      resize
                      class="w-full"
                   />
-               </UFormGroup>
+               </UFormField>
 
                <!-- Dates Section -->
                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <UFormGroup
+                  <UFormField
                      label="Listing date"
                      name="listingDate"
                      help="When should this listing appear on the platform"
@@ -252,9 +220,9 @@ useAppTitle('Add new class listing');
                         deny-past
                         class="w-full"
                      />
-                  </UFormGroup>
+                  </UFormField>
 
-                  <UFormGroup
+                  <UFormField
                      label="Available from"
                      name="availableFrom"
                      help="When can students start taking this course"
@@ -266,11 +234,11 @@ useAppTitle('Add new class listing');
                         deny-past
                         class="w-full"
                      />
-                  </UFormGroup>
+                  </UFormField>
                </div>
 
                <!-- Pricing Section -->
-               <UFormGroup
+               <UFormField
                   label="Class Fee (per hour)"
                   name="hourlyRate"
                   help="Set your hourly teaching rate"
@@ -278,12 +246,12 @@ useAppTitle('Add new class listing');
                >
                   <UInput
                      v-model="formState.hourlyRate"
-                     placeholder="Eg. 25,000"
+                     placeholder="Eg. 1000.00"
                      type="number"
                      class="w-full"
                      icon="i-heroicons-currency-dollar"
                   />
-               </UFormGroup>
+               </UFormField>
 
                <!-- Contact Information Section -->
                <div class="mt-2 pt-4 border-t border-first-100">
@@ -293,7 +261,7 @@ useAppTitle('Add new class listing');
 
                   <div class="space-y-5">
                      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <UFormGroup
+                        <UFormField
                            label="Phone"
                            name="contactPhone"
                            help="Your contact phone number for students"
@@ -304,9 +272,9 @@ useAppTitle('Add new class listing');
                               placeholder="Eg. 077 1234 123"
                               icon="i-heroicons-phone"
                            />
-                        </UFormGroup>
+                        </UFormField>
 
-                        <UFormGroup
+                        <UFormField
                            label="Email"
                            name="contactEmail"
                            help="Your contact email for students"
@@ -317,10 +285,10 @@ useAppTitle('Add new class listing');
                               placeholder="Eg. hello@hello.com"
                               icon="i-heroicons-envelope"
                            />
-                        </UFormGroup>
+                        </UFormField>
                      </div>
 
-                     <UFormGroup
+                     <UFormField
                         name="contactAddress"
                         label="Address"
                         help="Your teaching location or address"
@@ -331,7 +299,7 @@ useAppTitle('Add new class listing');
                            :rows="3"
                            placeholder="Enter your full address"
                         />
-                     </UFormGroup>
+                     </UFormField>
                   </div>
                </div>
 
@@ -339,7 +307,8 @@ useAppTitle('Add new class listing');
                <footer class="mt-6 flex justify-end gap-3">
                   <UButton
                      type="button"
-                     color="green"
+                     color="success"
+                     variant="solid"
                      :loading="isSubmitting"
                      @click="manualSubmit"
                   >

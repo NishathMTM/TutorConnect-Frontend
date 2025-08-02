@@ -31,6 +31,8 @@ export const AdminTeacherSchema = z.object({
       phone1: z.string(),
       address: z.string(),
       createdAt: z.string().datetime(),
+      gender: z.string(),
+      dob: z.string(),
 
    }),
    profileCreated: z.boolean(),
