@@ -40,7 +40,7 @@ function getCourseLink() {
             <div
                class="flex items-center justify-center gap-2 rounded-full bg-first-500 px-4 text-xs text-first-50"
             >
-               <UIcon :name="iconLibrary.course.type" />
+               <UIcon :name="iconLibrary.property.propertyType" />
                {{ course.courseType.courseType }}
             </div>
 
