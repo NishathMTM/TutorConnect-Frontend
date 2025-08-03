@@ -13,7 +13,7 @@ const mainLinks = [
    { link: '/', label: 'About' },
    { link: '/', label: 'Contact' },
    { link: '/public/listings', label: 'Listings', classNames: 'main-nav-link-special' },
-   { link: '/', label: 'Legal' },
+
 ];
 
 const isOpen = ref(false);
@@ -150,11 +150,6 @@ const isOpen = ref(false);
                <div class="flex items-center">
                   <UIcon name="i-ic:baseline-copyright" />
                   <div>{{ dayjs().format('YYYY') }} Tutor Connect. All rights reserved.</div>
-               </div>
-
-               <!-- Test button to verify it works -->
-               <div v-if="loggedIn">
-                  <ButtonSignOut>Logout Test</ButtonSignOut>
                </div>
             </div>
          </div>

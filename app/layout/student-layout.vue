@@ -15,18 +15,18 @@ const items = ref<NavigationMenuItem[]>([
    {
       label: 'classes',
       icon: 'i-heroicons-book-open',
-      to: '/app/student/classes',
-   },
-   {
-      label: 'Class Bookings',
-      icon: 'i-heroicons-map-pin',
       to: '/app/student/bookings',
    },
-   {
-      label: 'Payment',
-      icon: 'i-heroicons-user-group',
-      to: '/app/student/class-payment',
-   },
+   // {
+   //    label: 'Class Bookings',
+   //    icon: 'i-heroicons-map-pin',
+   //    to: '/app/student/bookings',
+   // },
+   // {
+   //    label: 'Payment',
+   //    icon: 'i-heroicons-user-group',
+   //    to: '/app/student/class-payment',
+   // },
 ]);
 </script>
 

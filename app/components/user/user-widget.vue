@@ -54,7 +54,7 @@ const userAvatar = computed(() => {
             </template>
          </UAvatar>
 
-         <template #panel>
+         <template #content>
             <div class="min-w-52">
                <!-- region: user info -->
                <div class="border-b border-b-second-100 bg-second-50 p-4">

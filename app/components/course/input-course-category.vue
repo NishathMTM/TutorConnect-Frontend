@@ -47,7 +47,7 @@ watch(modelValue, () => {
       v-model="modelValue"
       :items="items"
       value-key="id"
-      placeholder="Select Course Category"
+      placeholder="Select Your Course Category here"
    />
 </template>
 

@@ -9,6 +9,10 @@ const { course } = defineProps<{
    course: Course;
 }>();
 
+const emit = defineEmits<{
+   'update:status': [];
+}>();
+
 /* ---------------------------------------------------------------------------------------------- */
 
 const courseId = ref(course.id);
@@ -19,6 +23,28 @@ onMounted(() => {
 });
 
 /* ---------------------------------------------------------------------------------------------- */
+/*
+ * Update the status
+ */
+
+async function handleUpdateStatus(id: number, status: 'ACTIVE' | 'INACTIVE') {
+   try {
+      await useNuxtApp().$api(`/course-listing/${id}?status_only=1`, {
+         method: `PUT`,
+         body: {
+            status,
+         },
+      });
+
+      // Refresh the listings data to show updated status
+      await apiListings.execute();
+
+      emit('update:status');
+   }
+   catch (error) {
+      console.error(error);
+   }
+}
 
 function getListingLink(listingId: number) {
    return `/app/teacher/course-listings/${listingId}`;
@@ -65,18 +91,35 @@ function getListingLink(listingId: number) {
                   </div>
                </div>
 
-               <div class="flex items-center">
-                  <UChip
-                     size="sm"
-                     :color="listing.status === 'ACTIVE' ? 'success' : 'secondary'"
-                     class="mr-2"
+               <div class="flex items-end gap-2">
+                  <!--                  <UBadge -->
+                  <!--                     size="sm" -->
+                  <!--                     :color="listing.status === 'ACTIVE' ? 'success' : 'error'" -->
+                  <!--                     variant="subtle" -->
+                  <!--                  > -->
+                  <!--                     {{ listing.status }} -->
+                  <!--                  </UBadge> -->
+
+                  <UButton
+                     v-if="listing.status === 'INACTIVE'"
+                     color="success"
+                     size="xs"
+                     @click="handleUpdateStatus(listing.id, 'ACTIVE')"
                   >
-                     {{ listing.status }}
-                  </UChip>
+                     ACTIVATE
+                  </UButton>
+                  <UButton
+                     v-else
+                     color="error"
+                     size="xs"
+                     @click="handleUpdateStatus(listing.id, 'INACTIVE')"
+                  >
+                     DEACTIVATE
+                  </UButton>
                   <UButton
                      size="xs"
                      variant="soft"
-                     color="neutral"
+                     color="secondary"
                      :to="getListingLink(listing.id)"
                      icon="i-heroicons-eye"
                   >

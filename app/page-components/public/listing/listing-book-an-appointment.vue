@@ -42,11 +42,11 @@ watch(() => apiBooking.booking, booking => bookingRef.value = booking, { immedia
 
 <template>
    <div v-if="!apiBooking.booking">
-      <header class="section-header">
-         Make a request for Class
+      <header class="section-header font-bold">
+         This Class is available from {{ listing.availableFrom }}. Make a request for Class.
       </header>
       <p class="mb-3 text-second-400">
-         If you are interested in this class, you can request a class time
+         If you are interested in this class, you can request a trial class
       </p>
 
       <div v-if="!loggedIn">

@@ -43,3 +43,16 @@ export const PublicCourseListingListSchema = z.array(PublicCourseListingSchema);
 
 export type PublicCourseListing = z.infer<typeof PublicCourseListingSchema>;
 export type PublicCourseInfo = z.infer<typeof PublicCourseInfoSchema>;
+
+export const PublicTeacherSchema = z.object({
+   id: z.number(),
+   email: z.string().email(),
+   profile: z.object({
+      fullName: z.string(),
+      phone1: z.string(),
+      address: z.string(),
+      avatarUrl: z.string().optional(),
+   }),
+});
+
+export type PublicTeacher = z.infer<typeof PublicTeacherSchema>;

@@ -4,9 +4,9 @@ import ImagePlaceholder from '~/components/ui/image-placeholder.vue';
 import { iconLibrary } from '~/utils/icons-utils';
 /* ---------------------------------------------------------------------------------------------- */
 
-const { course, showTeacher = true } = defineProps<{
+const { course } = defineProps<{
    course: Course;
-   showTeacher?: boolean;
+
 }>();
 
 const courseImages = computed(() => {
@@ -40,7 +40,7 @@ function getCourseLink() {
             <div
                class="flex items-center justify-center gap-2 rounded-full bg-first-500 px-4 text-xs text-first-50"
             >
-               <UIcon :name="iconLibrary.property.propertyType" />
+               <UIcon :name="iconLibrary.course.type" />
                {{ course.courseType.courseType }}
             </div>
 

@@ -10,7 +10,7 @@ definePageMeta({
 <template>
    <AdminLayout>
       <div class="admin-dashboard">
-         <h1 class="font-light sm:text-4xl mb-6">
+         <h1 class="font-bold text-3xl sm:text-4xl mb-6">
             Welcome to admin dashboard
          </h1>
 

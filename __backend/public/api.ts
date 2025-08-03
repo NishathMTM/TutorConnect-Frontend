@@ -1,13 +1,36 @@
-import type { PublicCourseListing } from '~~/__backend/public/types';
-
+import type { PublicCourseListing, PublicTeacher } from '~~/__backend/public/types';
 import type { PaginatedResponse } from '~~/__backend/types';
-import { PublicCourseListingListSchema, PublicCourseListingSchema } from '~~/__backend/public/types';
+
+import { PublicCourseListingListSchema, PublicCourseListingSchema, PublicTeacherSchema } from '~~/__backend/public/types';
 
 import { useApiPagination } from '~~/__backend/use-api-pagination';
 import { useApiFetch } from '~/composables/use-api-fetch';
 
 /* ---------------------------------------------------------------------------------------------- */
+/**
+ * Get teacher by ID
+ */
+export function usePublicApiGetTeacher(teacherId: Ref<number>) {
+   const { data, error, execute, status } = useApiFetch(
+      () => `/public/teacher/${teacherId.value}`,
+   );
 
+   const teacher = computed<PublicTeacher | null>(() => {
+      if (!error.value && data.value) {
+         return PublicTeacherSchema.parse(data.value);
+      }
+      return null;
+   });
+
+   return {
+      teacher,
+      error,
+      status,
+      execute,
+   };
+}
+
+/* ---------------------------------------------------------------------------------------------- */
 /**
  * Get all public course listings
  */

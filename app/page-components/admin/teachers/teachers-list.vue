@@ -14,6 +14,7 @@ interface Teacher {
       phone1: string;
       address: string;
       createdAt: string;
+
    } | null;
 }
 
@@ -98,10 +99,7 @@ const columns: TableColumn<Teacher>[] = [
                class: 'text-first-600 hover:text-first-800 text-sm font-medium',
                onClick: () => navigateTo(`/app/admin/teachers/${row.original.id}`),
             }, 'View'),
-            h('button', {
-               class: 'text-blue-600 hover:text-blue-800 text-sm font-medium',
-               onClick: () => navigateTo(`/app/admin/teachers/${row.original.id}/edit`),
-            }, 'Edit'),
+
          ]);
       },
    },
@@ -137,7 +135,7 @@ const columns: TableColumn<Teacher>[] = [
       />
 
       <!-- Pagination -->
-      <div v-if="pagination && pagination.totalPages > 1" class="mt-6 flex justify-center">
+      <div v-if="pagination && pagination.total > 1" class="mt-6 flex justify-center">
          <UPagination
             v-model="query.page"
             :total="pagination.total"

@@ -84,24 +84,12 @@ export function useApiGetTeachers(query: { page: number; perPage: number }) {
 
    const teachers = computed<AdminTeacher[]>(() => {
       if (!error.value && data.value) {
-         console.log('Raw API response:', data.value); // Debug log
-         // Return the data array directly since your backend returns { meta, data }
          return data.value.data || [];
       }
       return [];
    });
 
-   const pagination = computed(() => {
-      if (!error.value && data.value && data.value.meta) {
-         return {
-            total: data.value.meta.total,
-            totalPages: data.value.meta.lastPage,
-            currentPage: data.value.meta.currentPage,
-            perPage: data.value.meta.perPage,
-         };
-      }
-      return null;
-   });
+   const { pagination } = useApiPagination(data, error);
 
    return {
       execute,

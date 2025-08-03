@@ -2,6 +2,7 @@
 import { usePublicApiGetCourseListing } from '~~/__backend/public/api';
 
 import ListingCourseOverview from '~/page-components/public/listing/listing-course-overview.vue';
+import ListingTeacherDetails from '~/page-components/public/listing/listing-teacher-details.vue';
 import { formatLKR } from '~/utils/formatting-utils';
 import { iconLibrary } from '~/utils/icons-utils';
 
@@ -26,7 +27,12 @@ const listing = computed(() => {
    return null;
 });
 
-/* ---------------------------------------------------------------------------------------------- */
+const teacherId = computed(() => {
+   if (listing.value?.course?.user?.id) {
+      return listing.value.course.user.id;
+   }
+   return 0;
+});
 
 const images = computed(() => {
    if (course.value) {
@@ -75,7 +81,7 @@ const images = computed(() => {
                   <span class="text-second-400">•</span>
                   <span class="text-green-600 font-bold">
                      {{ formatLKR(listing.hourlyRate) }}
-                     <span class="text-sm font-medium">/month</span>
+                     <span class="text-sm font-medium">/hour</span>
                   </span>
                </div>
             </div>
@@ -112,6 +118,8 @@ const images = computed(() => {
 
                <!-- Right Column (1/3 width) -->
                <div class="lg:col-span-1 space-y-6">
+                  <!-- Teacher Details -->
+                  <ListingTeacherDetails :teacher-id="teacherId" />
                   <!--                   Booking Card -->
                   <div class="bg-white rounded-xl p-6 shadow-sm border border-first-100">
                      <ListingBookAnAppointment :listing="listing" />

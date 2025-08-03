@@ -11,12 +11,12 @@ import { redirectUser } from '~/utils/user-utils';
 
 const LoginFormSchema = z.object({
    email: z.string().email('We need your email to login'),
-   password: z.string().min(1, 'Password is required'),
+   password: z.string().min(6, 'Password is required'),
 });
 
 const loginFormState = reactive({
-   email: 'teacher1@gmail.com',
-   password: 'teacher1',
+   email: 'teacher2@hello.com',
+   password: 'teacher2',
 });
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -41,7 +41,7 @@ async function handleLogin() {
       await fetch();
 
       if (user.value && user.value.isAdmin) {
-         return navigateTo('/admin/dashboard');
+         return navigateTo('/app/admin/dashboard');
       }
 
       if (!user.value?.profileCreated) {

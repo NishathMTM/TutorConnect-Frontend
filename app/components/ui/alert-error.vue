@@ -3,7 +3,7 @@
 </script>
 
 <template>
-   <UAlert error="red" variant="soft" icon="i-uil:exclamation-triangle">
+   <UAlert color="error" variant="soft">
       <template #description>
          <slot />
       </template>

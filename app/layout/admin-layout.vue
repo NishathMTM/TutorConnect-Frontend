@@ -17,11 +17,7 @@ const items = ref<NavigationMenuItem[]>([
       icon: 'i-heroicons-user-group',
       to: '/app/admin/teachers',
    },
-   {
-      label: 'Listings',
-      icon: 'i-heroicons-book-open',
-      to: '/app/teacher/courses',
-   },
+
    {
       label: 'Students',
       icon: 'i-heroicons-user-group',

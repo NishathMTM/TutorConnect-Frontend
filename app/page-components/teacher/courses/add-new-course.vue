@@ -106,7 +106,7 @@ watchDeep(courseCategory, (courseCategory) => {
             </p>
          </div>
          <UForm :schema="formSchema" :state="formState" class="space-y-6">
-            <div class="grid gap-6">
+            <div class="grid grid-cols-1 gap-6">
                <UFormField name="courseTypeId" class="form-field">
                   <template #label>
                      <div class="flex items-center gap-1 mb-1">
@@ -152,8 +152,8 @@ watchDeep(courseCategory, (courseCategory) => {
       <template #footer>
          <div class="flex justify-end gap-3 pt-2">
             <UButton
-               color="gray"
-               variant="ghost"
+               color="error"
+               variant="soft"
                size="md"
                icon="i-heroicons-x-mark"
                @click="showAddCourseModal = false"
