@@ -69,7 +69,7 @@ const isOpen = ref(false);
                               <div class="flex justify-center">
                                  <UButton
                                     variant="soft"
-                                    to="/app/teacher"
+                                    to="/app/student"
                                  >
                                     Dashboard
                                  </UButton>
@@ -123,7 +123,7 @@ const isOpen = ref(false);
                >
                   <UButton
                      variant="soft"
-                     to="/app/teacher"
+                     to="/app/student"
                   >
                      Dashboard
                   </UButton>

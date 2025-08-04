@@ -91,7 +91,7 @@ useAppTitle('Booking details');
 
             <!-- region: single booking details -->
             <SingleBookingHeader :booking="apiBooking.booking" />
-            <!-- endregion: tenant details -->
+            <!-- endregion: student details -->
 
             <!-- region: callout area -->
             <section class="mt-5 flex w-full justify-center">

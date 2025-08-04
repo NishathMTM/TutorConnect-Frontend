@@ -1,22 +1,17 @@
 <script setup lang="ts">
 import PublicLayout from '~/layout/public-layout.vue';
 
-/* ---------------------------------------------------------------------------------------------- */
-
-/* ---------------------------------------------------------------------------------------------- */
 /*
  * Path: /
  * Description: Homepage
  */
 
 useAppTitle('Welcome');
-
-/* ---------------------------------------------------------------------------------------------- */
 </script>
 
 <template>
    <PublicLayout>
-      <!-- region: body -->
+      <!-- region: Hero Section -->
       <section class="p-4 lg:p-0">
          <div class="flex w-full flex-col lg:flex-row lg:gap-5">
             <aside class="basis-2/5">
@@ -24,12 +19,12 @@ useAppTitle('Welcome');
                   Bridging the Gap Between Teaching and Learning.
                </div>
 
-               <h4 class=" mt-5 mb-5 text-4xl justify-center font-bold text-primaryColor lg:text-3xl">
-                  Experience the Future. Start Managing Your learning and teaching Smarter – Try Now!
+               <h4 class="mt-5 mb-5 text-4xl justify-center font-bold text-primaryColor lg:text-3xl">
+                  Experience the Future. Start Managing Your Learning and Teaching Smarter – Try Now!
                </h4>
 
-               <div class="text-lg font-bold text-primaryColor">
-                  "Stay Connected with Your Tutors simply Anytime, Anywhere"
+               <div class="text-lg font-bold text-first-600">
+                  "Find Your Personal Tutor, Simply Connect Anytime, Anywhere"
                </div>
 
                <div class="mt-10 text-center lg:text-left">
@@ -48,25 +43,25 @@ useAppTitle('Welcome');
                   </UButton>
                </div>
             </aside>
-            <!-- region: image -->
+            <!-- region: Featured Image -->
             <div class="mt-10 basis-3/5 lg:mt-0">
                <div class="max-h-[380px]">
                   <img
                      class="max-h-[380px] w-full rounded-xl object-cover drop-shadow"
                      src="/img.png"
-                     alt=""
+                     alt="TConnect platform illustration showing teaching and learning connection"
                   >
                </div>
             </div>
-            <!-- endregion: image -->
+            <!-- endregion: Featured Image -->
          </div>
       </section>
-      <!-- endregion: body -->
+      <!-- endregion: Hero Section -->
 
-      <!-- region: property listings -->
+      <!-- region: Course Listings -->
       <div class="mt-10 p-4 lg:p-0">
          <header class="mb-5">
-            <Heading1>Recently listed Classes</Heading1>
+            <Heading1>Recently Listed Classes</Heading1>
          </header>
 
          <PublicCourseListings />
@@ -80,7 +75,7 @@ useAppTitle('Welcome');
             </NuxtLink>
          </footer>
       </div>
-      <!-- endregion: property listings -->
+      <!-- endregion: Course Listings -->
    </PublicLayout>
 </template>
 

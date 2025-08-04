@@ -69,7 +69,7 @@ watch(
                class="w-40"
             />
             <div class="flex items-center gap-2">
-               <span class="text-sm text-gray-500">Rent Range</span>
+               <span class="text-sm text-gray-500">Fees Range</span>
                <div class="flex items-center gap-2">
                   <UInput
                      v-model="query.minHourlyRate"

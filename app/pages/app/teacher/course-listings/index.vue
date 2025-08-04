@@ -9,10 +9,6 @@ definePageMeta({
 const { user } = useUserSession();
 
 const apiListings = reactive(useApiGetAllCourseListingsByTeacher(ref(user.value!.id)));
-
-onMounted(() => {
-   apiListings.execute();
-});
 </script>
 
 <template>

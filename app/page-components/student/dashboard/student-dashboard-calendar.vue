@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { BookingFull } from '~~/__backend/course-bookings/types';
+import StudentBookingCalendar from '~/page-components/student/booking/student-booking-calendar.vue';
 
 const { bookings } = defineProps<{
    bookings: BookingFull[];
@@ -24,7 +25,7 @@ const { bookings } = defineProps<{
          </div>
       </header>
 
-      <TeacherBookingCalendar :bookings="bookings" />
+      <StudentBookingCalendar :bookings="bookings" />
    </section>
 </template>
 

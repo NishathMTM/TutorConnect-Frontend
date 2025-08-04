@@ -12,11 +12,7 @@ const items = ref<NavigationMenuItem[]>([
       icon: 'i-heroicons-chart-bar',
       to: '/app/teacher',
    },
-   {
-      label: 'Listings',
-      icon: 'i-heroicons-pencil-square',
-      to: '/app/teacher/course-listings',
-   },
+
    {
       label: 'Classes',
       icon: 'i-heroicons-book-open',
